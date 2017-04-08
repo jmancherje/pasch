@@ -7,6 +7,36 @@ import firstBy from 'thenby';
 
 import schoolData from '../constants/schoolData';
 
+const getSortedList = (sortBy = 'state', schoolData) => {
+  // Update sorted list based on sorted prop
+  const schoolList = schoolData.slice();
+  // Requires two sorts because states have many schools
+  if (sortBy === 'state') {
+    schoolList.sort(firstBy('state', {ignoreCase: true}).thenBy('name', {ignoreCase: true}));
+  } else {
+    schoolList.sort(firstBy(sortBy, {ignoreCase: true}));
+  }
+
+  const listWithLabels = [];
+  schoolList.forEach((school, i, list) => {
+    if (
+      (sortBy === 'state') &&
+      (i === 0 || list[i][sortBy].toLowerCase() !== list[i-1][sortBy].toLowerCase())
+    ) {
+      listWithLabels.push({title: school[sortBy], isLabel: true});
+    // Else if alphabetical sort
+    // (numerical sort will not have dividers for now)
+    } else if (
+      (sortBy === 'name' || sortBy === 'accredidation') &&
+      (i === 0 || list[i][sortBy][0].toLowerCase() !== list[i-1][sortBy][0].toLowerCase())
+    ) {
+      listWithLabels.push({title: school[sortBy][0], isLabel: true });
+    }
+    listWithLabels.push(school);
+  });
+  return listWithLabels;  
+}
+
 class Divider extends React.Component {
   render() {
     return (
@@ -24,20 +54,18 @@ export default class SchoolList extends React.Component {
   constructor(props) {
     super(props)
 
-    const schoolList = schoolData.slice();
-    schoolList.sort(firstBy('state', {ignoreCase: true}).thenBy('name', {ignoreCase: true}));
-    const listWithLabels = [];
-    schoolList.forEach((school, i, list) => {
-      if (i === 0 || list[i].state.toLowerCase() !== list[i-1].state.toLowerCase()) {
-        listWithLabels.push({title: school.state, isLabel: true});
-      }
-      listWithLabels.push(school);
-    });
-    console.log(listWithLabels)
-
+    const { sortBy } = this.props;
+    
     this.state = {
-      sortBy: 'state',
-      schoolList: listWithLabels,
+      schoolList: getSortedList(sortBy, schoolData),
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.sortBy !== this.props.sortBy) {
+      this.setState({
+        schoolList: getSortedList(nextProps.sortBy, schoolData)
+      })
     }
   }
   render() {
@@ -54,7 +82,7 @@ export default class SchoolList extends React.Component {
           return <ListItem
             avatar
             component={ TouchableHighlight }
-            key={`${school.name}_${school.state}`}
+            key={`${school.name}_${school.state}_${index}`}
             title={school.name}
             onPress={ () => console.log('pressed') }
             subtitle={school.state}

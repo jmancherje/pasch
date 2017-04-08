@@ -1,6 +1,6 @@
 export default Object.freeze([
     {
-        name: 'school 1',
+        name: 'some school 1',
         minGpa: 2.75,
         averageGpa: 3.40,
         dataYear: 2016,
@@ -12,7 +12,7 @@ export default Object.freeze([
         workHours: 2000,
     },
     {
-        name: 'school 2',
+        name: 'a school 2',
         minGpa: 3.00,
         averageGpa: 3.55,
         dataYear: 2016,
@@ -24,7 +24,7 @@ export default Object.freeze([
         workHours: 3000,
     },
     {
-        name: 'school 3',
+        name: 'another school 3',
         minGpa: 2.75,
         averageGpa: 3.40,
         dataYear: 2016,
@@ -36,7 +36,7 @@ export default Object.freeze([
         workHours: 0,
     },
     {
-        name: 'school 4',
+        name: 'swimming school 4',
         minGpa: 3.00,
         averageGpa: 3.35,
         dataYear: 2015,
@@ -48,7 +48,7 @@ export default Object.freeze([
         workHours: 4000,
     },
     {
-        name: 'school 5',
+        name: 'shelby 5',
         minGpa: 3.2,
         averageGpa: 3.40,
         dataYear: 2016,
@@ -60,7 +60,7 @@ export default Object.freeze([
         workHours: 2500,
     },
     {
-        name: 'school 6',
+        name: 'basketball school 6',
         minGpa: 3.00,
         averageGpa: 3.55,
         dataYear: 2016,
@@ -70,5 +70,5 @@ export default Object.freeze([
         accredidation: 'probation',
         pacePassPercentage: 98,
         workHours: 1500,
-    },
+    }
 ])

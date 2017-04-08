@@ -1,31 +1,64 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Text, View, Button } from 'react-native';
+import { StyleSheet, ScrollView, Text, View } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
+import { Icon, Button } from 'react-native-elements';
 
 import SchoolList from './src/components/SchoolList';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'PA Schools',
+    header: ({ navigate }) => ({
+      right: (
+        <Icon
+          size={ 33 }
+          name='gear'
+          type='evilicon'
+          color='#517fa4'
+          containerStyle={{ marginRight: 20 }}
+          onPress={() => navigate('Filter', { updateSortBy: this.updateSortBy })}
+        />
+      )
+    })
+  };
+  updateSortBy = (sortBy) => {
+    this.setState({ sortBy });
   };
   render() {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView style={styles.container}>
-        <SchoolList />
+        <SchoolList sortBy="name" />
       </ScrollView>
     );
   }
 }
 
-class Favorites extends React.Component {
+class Filter extends React.Component {
   static navigationOptions = {
-    title: "Favorites",
+    title: "Filter",
   };
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View>
-        <Text>Favorites</Text>
+        <Button
+          buttonStyle={{ marginTop: 15 }}
+          title="Sort By State"
+          onPress={() => {
+            // TODO set up redux so we can update sortBy here.
+            // this.props.navigation.state.params.updateSortBy('state');
+            navigate('Home');
+          }}
+        />
+        <Button
+          buttonStyle={{ marginTop: 15 }}
+          title="Sort By Name"
+          onPress={() => {
+            // this.props.navigation.state.params.updateSortBy('name');
+            navigate('Home');
+          }}
+        />
       </View>
     );
   }
@@ -33,7 +66,7 @@ class Favorites extends React.Component {
 
 const App = StackNavigator({
   Home: { screen: HomeScreen },
-  Favorites: { screen: Favorites },
+  Filter: { screen: Filter },
 });
 
 export default App;
@@ -42,7 +75,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
 });
