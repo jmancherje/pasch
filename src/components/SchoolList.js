@@ -1,6 +1,5 @@
 import React from 'react';
-import { StackNavigator, TabNavigator } from 'react-navigation';
-import { ScrollView, TouchableHighlight, View, Text, StyleSheet } from 'react-native';
+import { ScrollView, TouchableHighlight, View, StyleSheet } from 'react-native';
 import { List, ListItem, Icon } from 'react-native-elements';
 
 import schoolData from '../constants/schoolData';
@@ -26,9 +25,9 @@ export default class SchoolList extends React.Component {
       right: (
         <Icon
           size={ 33 }
-          name='gear'
-          type='evilicon'
-          color='#517fa4'
+          name="gear"
+          type="evilicon"
+          color="#517fa4"
           containerStyle={{ marginRight: 20 }}
           onPress={() => navigate('Filter', { updateSortBy: this.updateSortBy })}
         />
@@ -40,7 +39,7 @@ export default class SchoolList extends React.Component {
     super(props);
 
     const { filter: sortBy = 'state' } = this.props;
-    
+
     this.state = {
       schoolList: getSortedList(sortBy, schoolData),
     }
@@ -54,7 +53,7 @@ export default class SchoolList extends React.Component {
     if (nextProps.filter !== this.props.filter) {
       this.setState({
         schoolList: getSortedList(nextProps.filter, schoolData)
-      })
+      });
     }
   }
   render() {
@@ -67,10 +66,9 @@ export default class SchoolList extends React.Component {
         <List containerStyle={{ marginTop: 0 }}>
           {this.state.schoolList.map((school, index, list) => {
             if (school.isLabel) {
-              return <Divider title={school.title} key={school.title}/>
+              return <Divider title={school.title} key={school.title}/>;
             }
             return <ListItem
-              avatar
               component={ TouchableHighlight }
               key={`${school.name}_${school.state}_${index}`}
               title={school.name}
@@ -79,7 +77,7 @@ export default class SchoolList extends React.Component {
               // leftIcon={{ name: 'flight-takeoff' }}
               rightTitle="View"
               avatar={{ uri: 'https://upload.wikimedia.org/wikipedia/en/6/61/Touro_University_California_seal.png' }}
-            /> 
+            />;
           })}
         </List>
       </ScrollView>

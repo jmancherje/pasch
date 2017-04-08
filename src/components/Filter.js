@@ -9,13 +9,13 @@ export default class Filter extends React.Component {
     resetFilter: PropTypes.func.isRequired,
   };
   static navigationOptions = {
-    title: "Filter",
+    title: 'Filter',
   };
   render() {
     const { navigate } = this.props.navigation;
     const {
       setFilter,
-      resetFilter,
+      // resetFilter,
     } = this.props;
     return (
       <View>

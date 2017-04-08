@@ -1,10 +1,7 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Text, View } from 'react-native';
-import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
-import { Icon, Button } from 'react-native-elements';
-
+import { addNavigationHelpers } from 'react-navigation';
 import { Provider, connect } from 'react-redux';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore } from 'redux';
 import devToolsEnhancer from 'remote-redux-devtools';
 
 import AppNavigator from './src/components/AppNavigator';
