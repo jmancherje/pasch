@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import { Text } from 'react-native-elements';
 
 import schoolData from '../constants/schoolData';
 
@@ -19,17 +20,27 @@ export default class SchoolInfo extends React.Component {
 
     this.state = { school };
   }
+  renderInfo = () => {
+    const school = this.state.school;
+    const info = [
+      <Text key="name" h2>{school.name}</Text>,
+      <Text key="state" h3>{school.state}</Text>,
+    ];
+
+    Object.keys(school).forEach((key) => {
+      if (school[key] && !(key === 'name' || key === 'state')) {
+        info.push(
+          <Text key={ key }>{ `${key}: ${school[key]}` }</Text>
+        );
+      }
+    });
+
+    return info;
+  };
   render() {
-    const { school } = this.state;
     return (
       <View>
-        {Object.keys(school).map((key) => (
-          <Text
-            key={key}
-          >
-            { `${key}: ${school[key]}` }
-          </Text>
-        ))}
+        { this.renderInfo() }
       </View>
     );
   }
