@@ -12,7 +12,7 @@ export default class Filter extends React.Component {
     title: 'Filter',
   };
   render() {
-    const { navigate } = this.props.navigation;
+    const { goBack } = this.props.navigation;
     const {
       setFilter,
       // resetFilter,
@@ -24,7 +24,7 @@ export default class Filter extends React.Component {
           title="Sort By State"
           onPress={() => {
             setFilter('state');
-            navigate('SchoolList');
+            goBack();
           }}
         />
         <Button
@@ -32,7 +32,7 @@ export default class Filter extends React.Component {
           title="Sort By Name"
           onPress={() => {
             setFilter('name');
-            navigate('SchoolList');
+            goBack();
           }}
         />
       </View>
