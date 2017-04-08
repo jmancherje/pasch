@@ -6,6 +6,19 @@ const navReducer = (state, action) => {
   return newState ? newState : state;
 }
 
-export const combineReducers({
-  nav: navReducer
+const defaultFilter = 'state';
+const filters = (state = defaultFilter, { type, payload }) => {
+  switch(type) {
+    case 'filters/RESET':
+      return defaultFilter;
+    case 'filters/SET':
+      return payload;
+    default:
+      return state;
+  }
+};
+
+export default combineReducers({
+  nav: navReducer,
+  filters,
 })

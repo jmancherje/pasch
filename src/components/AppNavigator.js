@@ -1,8 +1,9 @@
 import { StackNavigator } from 'react-navigation';
 
-import { HomeScreen, Filter } from '../App';
+import FilterContainer from '../containers/FilterContainer';
+import SchoolListContainer from '../containers/SchoolListContainer';
 
 export default StackNavigator({
-  Home: { screen: HomeScreen },
-  Filter: { screen: Filter },
+  SchoolList: { screen: SchoolListContainer },
+  Filter: { screen: FilterContainer },
 });

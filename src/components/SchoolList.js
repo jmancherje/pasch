@@ -1,41 +1,10 @@
 import React from 'react';
-// import { StyleSheet, Text, View, Button } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import { TouchableHighlight, View, Text } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
-import firstBy from 'thenby';
+import { ScrollView, TouchableHighlight, View, Text, StyleSheet } from 'react-native';
+import { List, ListItem, Icon } from 'react-native-elements';
 
 import schoolData from '../constants/schoolData';
-
-const getSortedList = (sortBy = 'state', schoolData) => {
-  // Update sorted list based on sorted prop
-  const schoolList = schoolData.slice();
-  // Requires two sorts because states have many schools
-  if (sortBy === 'state') {
-    schoolList.sort(firstBy('state', {ignoreCase: true}).thenBy('name', {ignoreCase: true}));
-  } else {
-    schoolList.sort(firstBy(sortBy, {ignoreCase: true}));
-  }
-
-  const listWithLabels = [];
-  schoolList.forEach((school, i, list) => {
-    if (
-      (sortBy === 'state') &&
-      (i === 0 || list[i][sortBy].toLowerCase() !== list[i-1][sortBy].toLowerCase())
-    ) {
-      listWithLabels.push({title: school[sortBy], isLabel: true});
-    // Else if alphabetical sort
-    // (numerical sort will not have dividers for now)
-    } else if (
-      (sortBy === 'name' || sortBy === 'accredidation') &&
-      (i === 0 || list[i][sortBy][0].toLowerCase() !== list[i-1][sortBy][0].toLowerCase())
-    ) {
-      listWithLabels.push({title: school[sortBy][0], isLabel: true });
-    }
-    listWithLabels.push(school);
-  });
-  return listWithLabels;  
-}
+import getSortedList from '../utils/getSortedList';
 
 class Divider extends React.Component {
   render() {
@@ -51,20 +20,40 @@ class Divider extends React.Component {
 }
 
 export default class SchoolList extends React.Component {
-  constructor(props) {
-    super(props)
+  static navigationOptions = {
+    title: 'PA Schools',
+    header: ({ navigate }) => ({
+      right: (
+        <Icon
+          size={ 33 }
+          name='gear'
+          type='evilicon'
+          color='#517fa4'
+          containerStyle={{ marginRight: 20 }}
+          onPress={() => navigate('Filter', { updateSortBy: this.updateSortBy })}
+        />
+      )
+    })
+  };
 
-    const { sortBy } = this.props;
+  constructor(props) {
+    super(props);
+
+    const { filter: sortBy = 'state' } = this.props;
     
     this.state = {
       schoolList: getSortedList(sortBy, schoolData),
     }
   }
 
+  updateSortBy = (sortBy) => {
+    this.setState({ sortBy });
+  };
+
   componentWillReceiveProps(nextProps) {
-    if (nextProps.sortBy !== this.props.sortBy) {
+    if (nextProps.filter !== this.props.filter) {
       this.setState({
-        schoolList: getSortedList(nextProps.sortBy, schoolData)
+        schoolList: getSortedList(nextProps.filter, schoolData)
       })
     }
   }
@@ -74,24 +63,33 @@ export default class SchoolList extends React.Component {
       return 'Empty List?';
     }
     return (
-      <List containerStyle={{ marginTop: 0 }}>
-        {this.state.schoolList.map((school, index, list) => {
-          if (school.isLabel) {
-            return <Divider title={school.title} key={school.title}/>
-          }
-          return <ListItem
-            avatar
-            component={ TouchableHighlight }
-            key={`${school.name}_${school.state}_${index}`}
-            title={school.name}
-            onPress={ () => console.log('pressed') }
-            subtitle={school.state}
-            // leftIcon={{ name: 'flight-takeoff' }}
-            rightTitle="View"
-            avatar={{ uri: 'https://upload.wikimedia.org/wikipedia/en/6/61/Touro_University_California_seal.png' }}
-          /> 
-        })}
-      </List>
+      <ScrollView style={styles.container}>
+        <List containerStyle={{ marginTop: 0 }}>
+          {this.state.schoolList.map((school, index, list) => {
+            if (school.isLabel) {
+              return <Divider title={school.title} key={school.title}/>
+            }
+            return <ListItem
+              avatar
+              component={ TouchableHighlight }
+              key={`${school.name}_${school.state}_${index}`}
+              title={school.name}
+              onPress={ () => console.log('pressed') }
+              subtitle={school.state}
+              // leftIcon={{ name: 'flight-takeoff' }}
+              rightTitle="View"
+              avatar={{ uri: 'https://upload.wikimedia.org/wikipedia/en/6/61/Touro_University_California_seal.png' }}
+            /> 
+          })}
+        </List>
+      </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
