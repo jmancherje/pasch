@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { ScrollView, TouchableHighlight, View, StyleSheet } from 'react-native';
 import { List, ListItem, Icon } from 'react-native-elements';
 
@@ -19,6 +19,10 @@ class Divider extends React.Component {
 }
 
 export default class SchoolList extends React.Component {
+  static propTypes = {
+    setSelection: PropTypes.func.isRequired,
+    filter: PropTypes.string.isRequired,
+  };
   static navigationOptions = {
     title: 'PA Schools',
     header: ({ navigate }) => ({
@@ -29,7 +33,7 @@ export default class SchoolList extends React.Component {
           type="evilicon"
           color="#517fa4"
           containerStyle={{ marginRight: 20 }}
-          onPress={() => navigate('Filter', { updateSortBy: this.updateSortBy })}
+          onPress={() => navigate('Filter')}
         />
       )
     })
@@ -42,12 +46,8 @@ export default class SchoolList extends React.Component {
 
     this.state = {
       schoolList: getSortedList(sortBy, schoolData),
-    }
+    };
   }
-
-  updateSortBy = (sortBy) => {
-    this.setState({ sortBy });
-  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.filter !== this.props.filter) {
@@ -56,6 +56,14 @@ export default class SchoolList extends React.Component {
       });
     }
   }
+
+  // TODO: make each list item it's own component
+  // To prevent binding in render
+  viewSchoolInfo = (selection) => {
+    this.props.setSelection(selection);
+    this.props.navigation.navigate('SchoolInfo');
+  };
+
   render() {
     // Safety First:
     if (!Array.isArray(this.state.schoolList) || !this.state.schoolList.length) {
@@ -72,7 +80,10 @@ export default class SchoolList extends React.Component {
               component={ TouchableHighlight }
               key={`${school.name}_${school.state}_${index}`}
               title={school.name}
-              onPress={ () => console.log('pressed') }
+              onPress={ this.viewSchoolInfo.bind(this, {
+                name: school.name,
+                state: school.state,
+              }) }
               subtitle={school.state}
               // leftIcon={{ name: 'flight-takeoff' }}
               rightTitle="View"
