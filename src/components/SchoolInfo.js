@@ -23,12 +23,13 @@ export default class SchoolInfo extends React.Component {
     const { school } = this.state;
     return (
       <View>
-        <Text>{ school.name }</Text>
-        <Text>{ school.state }</Text>
-        <Text>{ school.address }</Text>
-        <Text>{ school.accredidation }</Text>
-        <Text>{ school.pacePassPercentage }</Text>
-        <Text>{ school.workHours }</Text>
+        {Object.keys(school).map((key) => (
+          <Text
+            key={key}
+          >
+            { `${key}: ${school[key]}` }
+          </Text>
+        ))}
       </View>
     );
   }
