@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { ScrollView, TouchableHighlight, View, StyleSheet } from 'react-native';
 import { List, ListItem, Icon } from 'react-native-elements';
+import { SwipeRow } from 'react-native-swipe-list-view';
 
 import schoolData from '../constants/schoolData';
 import getSortedList from '../utils/getSortedList';
@@ -64,6 +65,11 @@ export default class SchoolList extends React.Component {
     this.props.navigation.navigate('SchoolInfo');
   };
 
+  // TODO: same as above
+  toggleSchoolFavorite = (selection) => {
+    this.props.favoriteSchool(selection);
+  };
+
   render() {
     // Safety First:
     if (!Array.isArray(this.state.schoolList) || !this.state.schoolList.length) {
@@ -76,19 +82,37 @@ export default class SchoolList extends React.Component {
             if (school.isLabel) {
               return <Divider title={school.title} key={school.title}/>;
             }
-            return <ListItem
-              component={ TouchableHighlight }
-              key={`${school.name}_${school.state}_${index}`}
-              title={school.name}
-              onPress={ this.viewSchoolInfo.bind(this, {
-                name: school.name,
-                state: school.state,
-              }) }
-              subtitle={school.state}
-              // leftIcon={{ name: 'flight-takeoff' }}
-              rightTitle="View"
-              avatar={{ uri: 'https://upload.wikimedia.org/wikipedia/en/6/61/Touro_University_California_seal.png' }}
-            />;
+            // TODO: implement this
+            // const star = favorites.includes(school.name) ? 'ios-star-outline' : 'ios-star-full';
+            return (
+              <SwipeRow
+                key={`${school.name}_${school.state}_${index}`}
+                leftOpenValue={75}
+                rightOpenValue={-75}
+                disableRightSwipe
+              >
+                <ListItem
+                  component={ TouchableHighlight }
+                  title="hidden"
+                  subtitle="also hidden"
+                  onPress={ () => console.log('clicked back item') }
+                  rightIcon={{ name: 'ios-star', type: 'ionicon' }}
+                />
+                <ListItem
+                  containerStyle={styles.standaloneRowBack}
+                  component={ TouchableHighlight }
+                  title={school.name}
+                  onPress={ this.viewSchoolInfo.bind(this, {
+                    name: school.name,
+                    state: school.state,
+                  }) }
+                  subtitle={school.state}
+                  // leftIcon={{ name: 'flight-takeoff' }}
+                  rightTitle="View"
+                  avatar={{ uri: 'https://upload.wikimedia.org/wikipedia/en/6/61/Touro_University_California_seal.png' }}
+                />
+              </SwipeRow>
+            );
           })}
         </List>
       </ScrollView>
@@ -101,4 +125,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  standaloneRowBack: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 15
+  },
+  hiddenItem: {
+    padding: 30
+  }
 });
