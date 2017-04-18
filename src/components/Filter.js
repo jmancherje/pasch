@@ -1,22 +1,32 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React from 'react';
 import { View } from 'react-native';
 import { Button } from 'react-native-elements';
 
+type Props = {
+  filter: Array<Object>,
+  setFilter: Function,
+  resetFilter: Function,
+  setSorter: Function,
+  resetSorter: Function,
+  navigation: { goBack: Function },
+};
+
 export default class Filter extends React.Component {
-  static propTypes = {
-    filter: PropTypes.string.isRequired,
-    setFilter: PropTypes.func.isRequired,
-    resetFilter: PropTypes.func.isRequired,
-  };
+  props: Props;
   static navigationOptions = {
     title: 'Filter',
   };
+
+  reset = () => {
+    this.props.resetFilter();
+    this.props.resetSorter();
+    this.props.navigation.goBack();
+  }
+
   render() {
     const { goBack } = this.props.navigation;
-    const {
-      setFilter,
-      // resetFilter,
-    } = this.props;
+    const { setFilter } = this.props;
     return (
       <View>
         <Button
@@ -34,6 +44,11 @@ export default class Filter extends React.Component {
             setFilter('name');
             goBack();
           }}
+        />
+        <Button
+          buttonStyle={{ marginTop: 15 }}
+          title="RESET"
+          onPress={ this.reset }
         />
       </View>
     );

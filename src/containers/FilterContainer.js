@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
 import Filter from '../components/Filter';
-import { setFilter, resetFilter } from '../actions';
+import { addSorter, addFilter, resetSorter, resetFilter } from '../actions';
 
 const mapStateToProps = (state) => ({
   filter: state.filters,
 });
 
 export default connect(mapStateToProps, {
-  setFilter,
+  addSorter,
+  addFilter,
+  resetSorter,
   resetFilter,
 })(Filter);

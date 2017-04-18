@@ -3,7 +3,6 @@ import { combineReducers } from 'redux';
 import AppNavigator from '../components/AppNavigator';
 
 import {
-  sorterKeys,
   schoolData,
 } from '../constants';
 
