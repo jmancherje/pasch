@@ -10,10 +10,10 @@
     "jasmine": true,
   },
 
-  "extends": [
-    "airbnb",
-    "airbnb-flow"
-  ],
+//  "extends": [
+//    "airbnb",
+//    "airbnb-flow"
+//  ],
 
   "plugins": [
     "react"
