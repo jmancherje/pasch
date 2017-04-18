@@ -10,6 +10,11 @@
     "jasmine": true,
   },
 
+  "extends": [
+    "airbnb",
+    "airbnb-flow"
+  ],
+
   "plugins": [
     "react"
   ],
@@ -238,7 +243,7 @@
     "react/no-multi-comp": 0,
     "react/no-string-refs": 1,
     "react/no-unknown-property": 0,
-    "react/prop-types": 0,
+    "react/prop-types": 1,
     "react/react-in-jsx-scope": 1,
     "react/self-closing-comp": 1,
     "react/wrap-multilines": 0,
