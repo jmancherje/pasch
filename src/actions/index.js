@@ -3,8 +3,22 @@ export const setFilter = (payload) => ({
   payload,
 });
 
+export const addFilter = (payload) => ({
+  type: 'filters/ADD',
+  payload,
+});
+
 export const resetFilter = (payload) => ({
   type: 'filters/RESET',
+});
+
+export const addSorter = (payload) => ({
+  type: 'sorters/ADD',
+  payload,
+});
+
+export const resetSorter = (payload) => ({
+  type: 'sorters/RESET',
 });
 
 // Payload in this case is an object containing identifying information
