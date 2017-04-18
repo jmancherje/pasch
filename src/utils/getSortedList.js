@@ -1,31 +1,90 @@
-import firstBy from 'thenby';
+// @flow
+import { reject, eachRight } from 'lodash';
 
-export default (sortBy: string = 'state', schoolArray: Array) => {
-  // Update sorted list based on sorted prop
-  const schoolList = schoolArray.slice();
-  // Requires two sorts because states have many schools
-  if (sortBy === 'state') {
-    schoolList.sort(firstBy('state', {ignoreCase: true}).thenBy('name', {ignoreCase: true}));
-  } else {
-    schoolList.sort(firstBy(sortBy, {ignoreCase: true}));
-  }
+const numericProperties = ['minGpa', 'averageGpa', 'dataYear', 'classSize', 'pacePassPercentage', 'workHours'];
+const fullLabelProperties = ['state', 'accreditation'];
+const alphabeticalProperties = ['name'];
+export const addLabels = (finalList: Array<Object>, { property }: { property: string }): Array<Object> => {
+  const list = [];
+  const isNumeric = numericProperties.includes(property);
+  const isFullLabel = fullLabelProperties.includes(property);
+  const isAlphabetical = alphabeticalProperties.includes(property);
 
-  const listWithLabels = [];
-  schoolList.forEach((school, i, list) => {
-    if (
-      (sortBy === 'state') &&
-      (i === 0 || list[i][sortBy].toLowerCase() !== list[i - 1][sortBy].toLowerCase())
-    ) {
-      listWithLabels.push({title: school[sortBy], isLabel: true});
-    // Else if alphabetical sort
-    // (numerical sort will not have dividers for now)
-    } else if (
-      (sortBy === 'name' || sortBy === 'accredidation') &&
-      (i === 0 || list[i][sortBy][0].toLowerCase() !== list[i - 1][sortBy][0].toLowerCase())
-    ) {
-      listWithLabels.push({title: school[sortBy][0], isLabel: true });
+  finalList.forEach((school, index, schools) => {
+    if (isFullLabel) {
+      if (
+        index === 0 ||
+        schools[index][property].toLowerCase() !== schools[index - 1][property].toLowerCase()
+      ) {
+        list.push({ title: school[property], isLabel: true });
+      }
     }
-    listWithLabels.push(school);
+    list.push(school);
   });
-  return listWithLabels;
+  return list;
 };
+
+const sortFunctions = {
+  default: (property) => (a, b) => a[property].toLowerCase() < b[property].toLowerCase(),
+  reverse: (property) => (a, b) => a[property].toLowerCase() > b[property].toLowerCase(),
+};
+
+// Takes an array of sort objects and composes the sorting
+// And returns a copy of the sorted array
+export const sortBy = (schools:Array<Object>, sortList: Array<Object>) => {
+  const schoolList = schools.slice();
+  eachRight(sortList, (sorter) => {
+    schoolList.sort(sortFunctions[sorter.functionType](sorter.property));
+  })
+  return schoolList;
+};
+
+type filterType = {
+  type: 'above'|'below'|'between'|'value'|'notValue',
+  property: string,
+  min?: number,
+  max?: number,
+  reverse?: boolean, // FilterNot or reject
+  value?: string,
+};
+
+export const filterBy = (schools: Array<Object>, filterList: Array<Object>) => {
+  let schoolList = schools.slice();
+  filterList.forEach(filter => {
+    const { min, max, type, reverse, value, property } = filter;
+    // Above, below, between for numbers
+    switch (type) {
+      case 'above':
+        schoolList = schoolList.filter(school => school[property] >= min);
+        break;
+      case 'below':
+        schoolList = schoolList.filter(school => school[property] <= max);
+        break;
+      case 'between':
+        schoolList = schoolList.filter(school => school[property] <= max && school[property] >= min);
+        break;
+      case 'value':
+        schoolList = schoolList.filter(school => school[property] === value);
+        break;
+      case 'notValue':
+        schoolList = reject(schoolList, school => school[property] === value);
+        break;
+      default:
+        break;
+    }
+  });
+  return schoolList;
+};
+
+export const getSortedFilteredList = (
+  schools: Array<Object>,
+  sorters: Array<Object>,
+  filters: Array<Object>,
+) => {
+  const filteredSchools = filterBy(schools, filters);
+  const sortedSchools = sortBy(filteredSchools, sorters);
+  return addLabels(sortedSchools, sorters[0])
+  // return sortedSchools;
+}
+
+// addLabels(sortBy(sorters, filterBy(filters, schools)), sorters[0]);

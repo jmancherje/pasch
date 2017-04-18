@@ -6,6 +6,23 @@ import { SwipeRow } from 'react-native-swipe-list-view';
 import schoolData from '../constants/schoolData';
 import getSortedList from '../utils/getSortedList';
 
+// const favoriteIcon = {
+//   name: 'heart',
+//   type: 'font-awesome',
+//   color: '#74db67',
+//   style: { paddingRight: 15, fontSize: 45, borderWidth: 2, borderColor: 'black' },
+// };
+
+const nonFavoriteIcon = {
+  name: 'heart-o',
+  type: 'font-awesome',
+  color: 'pink',
+  style: {
+    paddingRight: 15,
+    fontSize: 35,
+  },
+};
+
 class Divider extends React.Component {
   render() {
     return (
@@ -22,7 +39,7 @@ class Divider extends React.Component {
 export default class SchoolList extends React.Component {
   static propTypes = {
     setSelection: PropTypes.func.isRequired,
-    filter: PropTypes.string.isRequired,
+    schools: PropTypes.array.isRequired,
   };
   static navigationOptions = {
     title: 'PA Schools',
@@ -40,24 +57,6 @@ export default class SchoolList extends React.Component {
     })
   };
 
-  constructor(props) {
-    super(props);
-
-    const { filter: sortBy = 'state' } = this.props;
-
-    this.state = {
-      schoolList: getSortedList(sortBy, schoolData),
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.filter !== this.props.filter) {
-      this.setState({
-        schoolList: getSortedList(nextProps.filter, schoolData)
-      });
-    }
-  }
-
   // TODO: make each list item it's own component
   // To prevent binding in render
   viewSchoolInfo = (selection) => {
@@ -66,19 +65,19 @@ export default class SchoolList extends React.Component {
   };
 
   // TODO: same as above
-  toggleSchoolFavorite = (selection) => {
-    this.props.favoriteSchool(selection);
-  };
+  // toggleSchoolFavorite = (selection) => {
+  //   this.props.favoriteSchool(selection);
+  // };
 
   render() {
     // Safety First:
-    if (!Array.isArray(this.state.schoolList) || !this.state.schoolList.length) {
+    if (!Array.isArray(this.props.schools) || !this.props.schools.length) {
       return 'Empty List?';
     }
     return (
       <ScrollView style={styles.container}>
         <List containerStyle={{ marginTop: 0 }}>
-          {this.state.schoolList.map((school, index, list) => {
+          {this.props.schools.map((school, index, list) => {
             if (school.isLabel) {
               return <Divider title={school.title} key={school.title}/>;
             }
@@ -92,14 +91,15 @@ export default class SchoolList extends React.Component {
                 disableRightSwipe
               >
                 <ListItem
+                  containerStyle={styles.standaloneRowBack}
                   component={ TouchableHighlight }
                   title="hidden"
                   subtitle="also hidden"
                   onPress={ () => console.log('clicked back item') }
-                  rightIcon={{ name: 'ios-star', type: 'ionicon' }}
+                  rightIcon={ nonFavoriteIcon }
                 />
                 <ListItem
-                  containerStyle={styles.standaloneRowBack}
+                  containerStyle={styles.foregroundRow}
                   component={ TouchableHighlight }
                   title={school.name}
                   onPress={ this.viewSchoolInfo.bind(this, {
@@ -126,12 +126,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   standaloneRowBack: {
-    alignItems: 'center',
+    backgroundColor: '#dee8f7',
+    // alignItems: 'center',
+    // flex: 1,
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // padding: 15
+  },
+  foregroundRow: {
     backgroundColor: '#fff',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 15
   },
   hiddenItem: {
     padding: 30
