@@ -1,10 +1,8 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React from 'react';
 import { ScrollView, TouchableHighlight, View, StyleSheet } from 'react-native';
 import { List, ListItem, Icon } from 'react-native-elements';
 import { SwipeRow } from 'react-native-swipe-list-view';
-
-import schoolData from '../constants/schoolData';
-import getSortedList from '../utils/getSortedList';
 
 // const favoriteIcon = {
 //   name: 'heart',
@@ -24,6 +22,7 @@ const nonFavoriteIcon = {
 };
 
 class Divider extends React.Component {
+  props: { title: string };
   render() {
     return (
       <ListItem
@@ -37,9 +36,10 @@ class Divider extends React.Component {
 }
 
 export default class SchoolList extends React.Component {
-  static propTypes = {
-    setSelection: PropTypes.func.isRequired,
-    schools: PropTypes.array.isRequired,
+  props: {
+    setSelection: Function,
+    schools: Array<Object>,
+    navigation: Object,
   };
   static navigationOptions = {
     title: 'PA Schools',
@@ -59,7 +59,7 @@ export default class SchoolList extends React.Component {
 
   // TODO: make each list item it's own component
   // To prevent binding in render
-  viewSchoolInfo = (selection) => {
+  viewSchoolInfo = (selection: Object) => {
     this.props.setSelection(selection);
     this.props.navigation.navigate('SchoolInfo');
   };
@@ -126,11 +126,6 @@ const styles = StyleSheet.create({
   },
   standaloneRowBack: {
     backgroundColor: '#dee8f7',
-    // alignItems: 'center',
-    // flex: 1,
-    // flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // padding: 15
   },
   foregroundRow: {
     backgroundColor: '#fff',
