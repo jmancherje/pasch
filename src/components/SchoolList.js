@@ -71,49 +71,48 @@ export default class SchoolList extends React.Component {
 
   render() {
     // Safety First:
-    if (!Array.isArray(this.props.schools) || !this.props.schools.length) {
-      return 'Empty List?';
-    }
     return (
       <ScrollView style={styles.container}>
         <List containerStyle={{ marginTop: 0 }}>
-          {this.props.schools.map((school, index, list) => {
-            if (school.isLabel) {
-              return <Divider title={school.title} key={school.title}/>;
-            }
-            // TODO: implement this
-            // const star = favorites.includes(school.name) ? 'ios-star-outline' : 'ios-star-full';
-            return (
-              <SwipeRow
-                key={`${school.name}_${school.state}_${index}`}
-                leftOpenValue={75}
-                rightOpenValue={-75}
-                disableRightSwipe
-              >
-                <ListItem
-                  containerStyle={styles.standaloneRowBack}
-                  component={ TouchableHighlight }
-                  title="hidden"
-                  subtitle="also hidden"
-                  onPress={ () => console.log('clicked back item') }
-                  rightIcon={ nonFavoriteIcon }
-                />
-                <ListItem
-                  containerStyle={styles.foregroundRow}
-                  component={ TouchableHighlight }
-                  title={school.name}
-                  onPress={ this.viewSchoolInfo.bind(this, {
-                    name: school.name,
-                    state: school.state,
-                  }) }
-                  subtitle={school.state}
-                  // leftIcon={{ name: 'flight-takeoff' }}
-                  rightTitle="View"
-                  avatar={{ uri: 'https://upload.wikimedia.org/wikipedia/en/6/61/Touro_University_California_seal.png' }}
-                />
-              </SwipeRow>
-            );
-          })}
+          { (!Array.isArray(this.props.schools) || !this.props.schools.length) ? <Divider title="No Schools, try adjusting filters" /> : (
+            this.props.schools.map((school, index, list) => {
+              if (school.isLabel) {
+                return <Divider title={school.title} key={school.title}/>;
+              }
+              // TODO: implement this
+              // const star = favorites.includes(school.name) ? 'ios-star-outline' : 'ios-star-full';
+              return (
+                <SwipeRow
+                  key={`${school.name}_${school.state}_${index}`}
+                  leftOpenValue={75}
+                  rightOpenValue={-75}
+                  disableRightSwipe
+                >
+                  <ListItem
+                    containerStyle={styles.standaloneRowBack}
+                    component={ TouchableHighlight }
+                    title="hidden"
+                    subtitle="also hidden"
+                    onPress={ () => console.log('clicked back item') }
+                    rightIcon={ nonFavoriteIcon }
+                  />
+                  <ListItem
+                    containerStyle={styles.foregroundRow}
+                    component={ TouchableHighlight }
+                    title={school.name}
+                    onPress={ this.viewSchoolInfo.bind(this, {
+                      name: school.name,
+                      state: school.state,
+                    }) }
+                    subtitle={school.state}
+                    // leftIcon={{ name: 'flight-takeoff' }}
+                    rightTitle="View"
+                    avatar={{ uri: 'https://upload.wikimedia.org/wikipedia/en/6/61/Touro_University_California_seal.png' }}
+                  />
+                </SwipeRow>
+              );
+            })
+          ) }
         </List>
       </ScrollView>
     );

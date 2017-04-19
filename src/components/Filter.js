@@ -122,7 +122,7 @@ class FilterComponent extends React.Component {
       property: '',
       modifiers: [],
     });
-    let options = ['state', 'minGpa', 'workHours', 'accreditation','Cancel'];
+    let options = ['state', 'minGpa', 'averageGpa', 'workHours', 'accreditation','Cancel'];
     let cancelButtonIndex = options.length - 1;
     this.props.showActionSheetWithOptions(
       {
