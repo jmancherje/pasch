@@ -1,27 +1,17 @@
-import React, { PropTypes } from 'react';
+// @flow
+import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-elements';
 
-import schoolData from '../constants/schoolData';
-
 export default class SchoolInfo extends React.Component {
-  static propTypes = {
-    selection: PropTypes.object.isRequired,
+  props: {
+    school: Object,
   };
   static navigationOptions = {
     title: 'SchoolInfo',
   };
-  constructor(props) {
-    super(props);
-
-    const school = schoolData.find(
-      schoolInfo => schoolInfo.name === this.props.selection.name
-    );
-
-    this.state = { school };
-  }
   renderInfo = () => {
-    const school = this.state.school;
+    const { school } = this.props;
     const info = [
       <Text key="name" h2>{school.name}</Text>,
       <Text key="state" h3>{school.state}</Text>,

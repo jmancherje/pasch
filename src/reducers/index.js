@@ -2,9 +2,7 @@ import { combineReducers } from 'redux';
 
 import AppNavigator from '../components/AppNavigator';
 
-import {
-  schoolData,
-} from '../constants';
+import realData from '../constants/realData.json';
 
 const navReducer = (state, action) => {
   const newState = AppNavigator.router.getStateForAction(action, state);
@@ -13,7 +11,6 @@ const navReducer = (state, action) => {
 
 const defaultFilters = [];
 const filters = (state = defaultFilters, { type, payload }) => {
-  console.log('filter payload', type, payload);
   switch (type) {
     case 'filters/RESET':
       return [...defaultFilters];
@@ -54,7 +51,7 @@ const selection = (state = {}, { type, payload }) => {
   }
 };
 
-const schools = (state = schoolData, { type, payload }) => {
+const schools = (state = realData, { type, payload }) => {
   return state;
 };
 

@@ -41,7 +41,6 @@ class FilterComponent extends React.Component {
   };
 
   _addFilter = () => {
-    console.log('state at the beginning');
     const { property, modifiers } = this.state;
     const filter = { property };
     if (modifiers[0] === 'above' || modifiers[0] === 'below') {
@@ -57,7 +56,6 @@ class FilterComponent extends React.Component {
       filter.value = modifiers[0];
       filter.type = 'value';
     }
-    console.log('filter', filter);
     this.props.addFilter(filter);
   };
 
@@ -74,6 +72,9 @@ class FilterComponent extends React.Component {
         cancelButtonIndex,
       },
       btnIndex => {
+        if (btnIndex === cancelButtonIndex) {
+          return;
+        }
         this.setState({ modifiers: [...this.state.modifiers, options[btnIndex]] });
         this._addFilter();
       }
@@ -89,6 +90,9 @@ class FilterComponent extends React.Component {
         cancelButtonIndex,
       },
       btnIndex => {
+        if (btnIndex === cancelButtonIndex) {
+          return;
+        }
         this.setState({ modifiers: [...this.state.modifiers, options[btnIndex]] });
         this._addFilter();
       }
@@ -96,7 +100,7 @@ class FilterComponent extends React.Component {
   };
 
   _openWorkHoursSelector = () => {
-    const options = [...filterOptions.workHours, 'Cancel'];
+    const options = [...filterOptions.healthcareHours, 'Cancel'];
     const cancelButtonIndex = options.length - 1;
     this.props.showActionSheetWithOptions(
       {
@@ -104,6 +108,9 @@ class FilterComponent extends React.Component {
         cancelButtonIndex,
       },
       btnIndex => {
+        if (btnIndex === cancelButtonIndex) {
+          return;
+        }
         this.setState({ modifiers: [...this.state.modifiers, options[btnIndex]] });
         this._addFilter();
       }
@@ -119,45 +126,75 @@ class FilterComponent extends React.Component {
         cancelButtonIndex,
       },
       btnIndex => {
+        if (btnIndex === cancelButtonIndex) {
+          return;
+        }
         this.setState({ modifiers: [...this.state.modifiers, options[btnIndex]] });
         switch (this.state.property) {
           case 'minGpa':
-          case 'averageGpa':
+          case 'minSGpa':
             this._openGpaSelector();
             break;
-          case 'workHours':
+          case 'healthcareHours':
             this._openWorkHoursSelector();
+            break;
+          case 'pance':
+            this._openPanceSelector();
             break;
         }
       }
     );
   };
 
-  _openFilterActionSheet = () => {
-    this.setState({
-      property: '',
-      modifiers: [],
-    });
-    let options = ['state', 'minGpa', 'averageGpa', 'workHours', 'accreditation','Cancel'];
-    let cancelButtonIndex = options.length - 1;
+  _openPanceSelector = () => {
+    const options = [...filterOptions.pance, 'Cancel'];
+    const cancelButtonIndex = options.length - 1;
     this.props.showActionSheetWithOptions(
       {
         options,
         cancelButtonIndex,
       },
       btnIndex => {
+        if (btnIndex === cancelButtonIndex) {
+          return;
+        }
+        this.setState({ modifiers: [...this.state.modifiers, options[btnIndex]] });
+        this._addFilter();
+      }
+    );
+  };
+
+  _openFilterActionSheet = () => {
+    // Reset state
+    this.setState({
+      property: '',
+      modifiers: [],
+    });
+    // const options = ['state', 'minGpa', 'minSGpa', 'healthcareHours', 'pance', 'greRequired', 'accreditation','Cancel'];
+    const options = [...Object.keys(filterOptions),'Cancel'];
+    const cancelButtonIndex = options.length - 1;
+    this.props.showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      btnIndex => {
+        if (btnIndex === cancelButtonIndex) {
+          return;
+        }
         this.setState({ property: options[btnIndex] });
         switch (options[btnIndex]) {
           case 'state':
+          case 'greRequired':
+          case 'accreditation':
             this._openSetValueSelector();
             break;
-          case 'workHours':
+          case 'healthcareHours':
           case 'minGpa':
-          case 'averageGpa':
+          case 'minSGpa':
+          case 'pance':
             this._openAboveBelowSelector();
             break;
-        }
-        if (btnIndex === 0) {
         }
       }
     );

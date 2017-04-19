@@ -1,9 +1,9 @@
 // @flow
 import { reject, eachRight } from 'lodash';
 
-const numericProperties = ['minGpa', 'averageGpa', 'dataYear', 'classSize', 'pacePassPercentage', 'workHours'];
+// const numericProperties = ['minGpa', 'minSGpa', 'pance', 'healthcareHours'];
 const fullLabelProperties = ['state', 'accreditation'];
-const alphabeticalProperties = ['name'];
+// const alphabeticalProperties = ['name'];
 export const addLabels = (finalList: Array<Object>, { property }: { property: string }): Array<Object> => {
   const list = [];
   // const isNumeric = numericProperties.includes(property);
@@ -83,8 +83,7 @@ export const getSortedFilteredList = (
 ) => {
   const filteredSchools = filterBy(schools, filters);
   const sortedSchools = sortBy(filteredSchools, sorters);
-  return addLabels(sortedSchools, sorters[0])
-  // return sortedSchools;
-}
+  return addLabels(sortedSchools, sorters[0]);
+};
 
 // addLabels(sortBy(sorters, filterBy(filters, schools)), sorters[0]);

@@ -4,13 +4,6 @@ import { ScrollView, TouchableHighlight, View, StyleSheet } from 'react-native';
 import { List, ListItem, Icon } from 'react-native-elements';
 import { SwipeRow } from 'react-native-swipe-list-view';
 
-// const favoriteIcon = {
-//   name: 'heart',
-//   type: 'font-awesome',
-//   color: '#74db67',
-//   style: { paddingRight: 15, fontSize: 45, borderWidth: 2, borderColor: 'black' },
-// };
-
 const nonFavoriteIcon = {
   name: 'heart-o',
   type: 'font-awesome',
