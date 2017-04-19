@@ -3,7 +3,7 @@ import Filter from '../components/Filter';
 import { addSorter, addFilter, resetSorter, resetFilter } from '../actions';
 
 const mapStateToProps = (state) => ({
-  filter: state.filters,
+  filters: state.filters,
 });
 
 export default connect(mapStateToProps, {

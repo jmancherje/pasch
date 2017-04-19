@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { View } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, ListItem } from 'react-native-elements';
 import {
   ActionSheetProvider,
   connectActionSheet,
@@ -16,6 +16,7 @@ type Props = {
   resetSorter: Function,
   showActionSheetWithOptions: Function,
   navigation: { goBack: Function },
+  filters: Array<Object>,
 };
 
 export default class Filter extends React.Component {
@@ -94,6 +95,21 @@ class FilterComponent extends React.Component {
     );
   };
 
+  _openWorkHoursSelector = () => {
+    const options = [...filterOptions.workHours, 'Cancel'];
+    const cancelButtonIndex = options.length - 1;
+    this.props.showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+      },
+      btnIndex => {
+        this.setState({ modifiers: [...this.state.modifiers, options[btnIndex]] });
+        this._addFilter();
+      }
+    );
+  };
+
   _openAboveBelowSelector = () => {
     const options = ['above', 'below', 'Cancel'];
     const cancelButtonIndex = options.length - 1;
@@ -110,7 +126,7 @@ class FilterComponent extends React.Component {
             this._openGpaSelector();
             break;
           case 'workHours':
-            console.log('workHours');
+            this._openWorkHoursSelector();
             break;
         }
       }
@@ -154,16 +170,30 @@ class FilterComponent extends React.Component {
   reset = () => {
     this.props.resetFilter();
     this.props.resetSorter();
-    this.props.navigation.goBack();
   };
 
-
+  _getFilterTitle(filter: Object) {
+    switch (filter.type) {
+      case 'above':
+      case 'below':
+        return `${filter.property} ${filter.type} ${filter.min || filter.max}`;
+      case 'value':
+        return `${filter.property}: ${filter.value}`;
+    }
+  }
 
   render() {
-    // const { goBack } = this.props.navigation;
-    // const { addFilter } = this.props;
     return (
       <View>
+        { this.props.filters.map(filter =>
+          <ListItem
+            key={ `${filter.property}_${filter.value}` }
+            title={ this._getFilterTitle(filter) }
+            hideChevron
+            component={ View }
+            containerStyle={{ backgroundColor: '#e0e3e6'}}
+          />
+        ) }
         <Button
           buttonStyle={{ marginTop: 15 }}
           title="Filter Schools"
