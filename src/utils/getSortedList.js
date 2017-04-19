@@ -6,9 +6,9 @@ const fullLabelProperties = ['state', 'accreditation'];
 const alphabeticalProperties = ['name'];
 export const addLabels = (finalList: Array<Object>, { property }: { property: string }): Array<Object> => {
   const list = [];
-  const isNumeric = numericProperties.includes(property);
+  // const isNumeric = numericProperties.includes(property);
   const isFullLabel = fullLabelProperties.includes(property);
-  const isAlphabetical = alphabeticalProperties.includes(property);
+  // const isAlphabetical = alphabeticalProperties.includes(property);
 
   finalList.forEach((school, index, schools) => {
     if (isFullLabel) {
@@ -35,7 +35,7 @@ export const sortBy = (schools:Array<Object>, sortList: Array<Object>) => {
   const schoolList = schools.slice();
   eachRight(sortList, (sorter) => {
     schoolList.sort(sortFunctions[sorter.functionType](sorter.property));
-  })
+  });
   return schoolList;
 };
 
@@ -48,7 +48,7 @@ type filterType = {
   value?: string,
 };
 
-export const filterBy = (schools: Array<Object>, filterList: Array<Object>) => {
+export const filterBy = (schools: Array<Object>, filterList: Array<filterType>) => {
   let schoolList = schools.slice();
   filterList.forEach(filter => {
     const { min, max, type, reverse, value, property } = filter;

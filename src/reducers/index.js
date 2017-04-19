@@ -13,6 +13,7 @@ const navReducer = (state, action) => {
 
 const defaultFilters = [];
 const filters = (state = defaultFilters, { type, payload }) => {
+  console.log('filter payload', type, payload);
   switch (type) {
     case 'filters/RESET':
       return [...defaultFilters];
