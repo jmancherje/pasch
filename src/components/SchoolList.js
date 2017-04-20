@@ -1,8 +1,10 @@
 // @flow
 import React from 'react';
-import { ScrollView, TouchableHighlight, View, StyleSheet } from 'react-native';
+import { ScrollView, TouchableHighlight, StyleSheet } from 'react-native';
 import { List, ListItem, Icon } from 'react-native-elements';
 import { SwipeRow } from 'react-native-swipe-list-view';
+
+import Divider from './Divider';
 
 const nonFavoriteIcon = {
   name: 'heart-o',
@@ -14,47 +16,31 @@ const nonFavoriteIcon = {
   },
 };
 
-class Divider extends React.Component {
-  props: { title: string };
-  render() {
-    return (
-      <ListItem
-        title={ this.props.title }
-        hideChevron
-        component={ View }
-        containerStyle={{ backgroundColor: '#e0e3e6'}}
-      />
-    );
-  }
-}
-
 export default class SchoolList extends React.Component {
   props: {
     setSelection: Function,
     schools: Array<Object>,
     navigation: Object,
   };
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title: 'PA Schools',
-    header: ({ navigate }) => ({
-      right: (
-        <Icon
-          size={ 33 }
-          name="gear"
-          type="evilicon"
-          color="#517fa4"
-          containerStyle={{ marginRight: 20 }}
-          onPress={() => navigate('Filter')}
-        />
-      )
-    })
-  };
+    headerRight: (
+      <Icon
+        size={ 33 }
+        name="gear"
+        type="evilicon"
+        color="#517fa4"
+        containerStyle={{ marginRight: 20 }}
+        onPress={() => navigation.navigate('Filter')}
+      />
+    )
+  });
 
   // TODO: make each list item it's own component
   // To prevent binding in render
   viewSchoolInfo = (selection: Object) => {
     this.props.setSelection(selection);
-    this.props.navigation.navigate('SchoolInfo');
+    this.props.navigation.navigate('SchoolInfo', { title: selection.name });
   };
 
   // TODO: same as above
@@ -72,8 +58,6 @@ export default class SchoolList extends React.Component {
               if (school.isLabel) {
                 return <Divider title={school.title} key={school.title}/>;
               }
-              // TODO: implement this
-              // const star = favorites.includes(school.name) ? 'ios-star-outline' : 'ios-star-full';
               return (
                 <SwipeRow
                   key={`${school.name}_${school.state}_${index}`}
@@ -84,22 +68,22 @@ export default class SchoolList extends React.Component {
                   <ListItem
                     containerStyle={styles.standaloneRowBack}
                     component={ TouchableHighlight }
-                    title="hidden"
-                    subtitle="also hidden"
+                    title={school.name}
+                    subtitle={school.state}
                     onPress={ () => console.log('clicked back item') }
                     rightIcon={ nonFavoriteIcon }
                   />
                   <ListItem
                     containerStyle={styles.foregroundRow}
                     component={ TouchableHighlight }
-                    title={school.name}
                     onPress={ this.viewSchoolInfo.bind(this, {
                       name: school.name,
                       state: school.state,
                     }) }
+                    title={school.name}
                     subtitle={school.state}
-                    // leftIcon={{ name: 'flight-takeoff' }}
-                    rightTitle="View"
+                    titleContainerStyle={styles.title}
+                    rightIcon={{ name: 'star', type: 'evilicon', color: '#517fa4', size: 33 }}
                     avatar={{ uri: 'https://upload.wikimedia.org/wikipedia/en/6/61/Touro_University_California_seal.png' }}
                   />
                 </SwipeRow>
@@ -122,6 +106,9 @@ const styles = StyleSheet.create({
   },
   foregroundRow: {
     backgroundColor: '#fff',
+  },
+  title: {
+    width: 200
   },
   hiddenItem: {
     padding: 30

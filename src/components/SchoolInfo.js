@@ -1,37 +1,114 @@
 // @flow
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from 'react-native-elements';
+import { ScrollView, View, StyleSheet } from 'react-native';
+import { Card, ListItem, Icon } from 'react-native-elements';
+
+import keyDisplayMap from '../constants/keyDisplayMap';
+import displayModifiers from '../constants/displayModifiers';
+
+import Divider from './Divider';
 
 export default class SchoolInfo extends React.Component {
   props: {
     school: Object,
   };
-  static navigationOptions = {
-    title: 'SchoolInfo',
-  };
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    headerRight: (
+      <Icon
+        size={ 33 }
+        name="heart"
+        type="evilicon"
+        color="#517fa4"
+        containerStyle={{ marginRight: 20 }}
+        onPress={() => console.log('add favorite action here') }
+      />
+    )
+  });
   renderInfo = () => {
     const { school } = this.props;
-    const info = [
-      <Text key="name" h2>{school.name}</Text>,
-      <Text key="state" h3>{school.state}</Text>,
-    ];
-
-    Object.keys(school).forEach((key) => {
-      if (school[key] && !(key === 'name' || key === 'state')) {
+    const info = [];
+    const {
+      state,
+      pance,
+      accreditation,
+      minGpa,
+      minSGpa,
+      healthcareHours,
+      greRequired,
+      misc,
+      website,
+      ...rest
+    } = school;
+    const addListItemFn = (key) => {
+      if (school[key] && !(key === 'name')) {
         info.push(
-          <Text key={ key }>{ `${key}: ${school[key]}` }</Text>
+          <ListItem key={ key }
+            hideChevron
+            title={ `${keyDisplayMap[key]}: ${displayModifiers[key](school[key])}` }
+          />
         );
       }
-    });
+    };
+    // General info:
+    info.push(
+      <Divider title="School Info:" key="schoolinfo" />
+    );
+    ['state', 'pance', 'accreditation'].forEach(addListItemFn);
+    // Minimum Requirements:
+    info.push(
+      <Divider title="Minimum Requirements:" key="requirements" />
+    );
+    ['minGpa', 'minSGpa', 'healthcareHours', 'greRequired'].forEach(addListItemFn);
+    // Other Info:
+    info.push(
+      <Divider title="Other Info:" key="otherinfo" />
+    );
+    // Add any misc items
+    Object.keys(rest).forEach((key) => addListItemFn(rest[key]));
+    ['misc','website'].forEach(addListItemFn);
+    info.push(
+      <ListItem
+        hideChevron
+        key="empty"
+        title="   "
+      />
+    );
 
     return info;
   };
   render() {
+    const { school } = this.props;
     return (
-      <View>
-        { this.renderInfo() }
+      <View style={{ flex: 1 }}>
+        <Card
+          containerStyle={{ flex: 1 }}
+          dividerStyle={{ marginBottom: 0 }}
+          title={ school.name }
+        >
+          <ScrollView>
+            { this.renderInfo() }
+          </ScrollView>
+        </Card>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  standaloneRowBack: {
+    backgroundColor: '#dee8f7',
+  },
+  foregroundRow: {
+    backgroundColor: '#fff',
+  },
+  title: {
+    width: 200
+  },
+  hiddenItem: {
+    padding: 30
+  }
+});
