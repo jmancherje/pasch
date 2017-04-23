@@ -11,7 +11,7 @@ export const filterByNumericalProperty = ({
   type: string, // oneOf: below, between, above,
   min: number,
   max: number,
-  schools: Array,
+  schools: Array<Object>,
 }) => {
   const list = schools.slice();
   if (type === 'below') {
@@ -33,7 +33,7 @@ export const filterByStringProperty = ({
   property: string,
   value: string,
   match: boolean, // true filters for the item, false filters against it
-  schools: Array,
+  schools: Array<Object>,
 }) => {
   const list = schools.slice();
   return list.filter(school => school.filter((school[property] === value) === match));

@@ -224,7 +224,7 @@ class FilterComponent extends React.Component {
       <View>
         { this.props.filters.map(filter =>
           <ListItem
-            key={ `${filter.property}_${filter.value}` }
+            key={ `${filter.property}_${filter.value || filter.min || filter.max}` }
             title={ this._getFilterTitle(filter) }
             hideChevron
             component={ View }
