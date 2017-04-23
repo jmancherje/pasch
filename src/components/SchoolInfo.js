@@ -1,12 +1,10 @@
 // @flow
 import React from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
-import { Card, ListItem, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
+import { Container, Content, Card, CardItem, Text } from 'native-base';
 
 import keyDisplayMap from '../constants/keyDisplayMap';
 import displayModifiers from '../constants/displayModifiers';
-
-import Divider from './Divider';
 
 export default class SchoolInfo extends React.Component {
   props: {
@@ -42,73 +40,59 @@ export default class SchoolInfo extends React.Component {
     const addListItemFn = (key) => {
       if (school[key] && !(key === 'name')) {
         info.push(
-          <ListItem key={ key }
+          <CardItem key={ key }
             hideChevron
-            title={ `${keyDisplayMap[key]}: ${displayModifiers[key](school[key])}` }
-          />
+            // title=
+          >
+            <Text>{ `${keyDisplayMap[key]}: ${displayModifiers[key](school[key])}` }</Text>
+          </CardItem>
         );
       }
     };
     // General info:
     info.push(
-      <Divider title="School Info:" key="schoolinfo" />
+      <CardItem key="schoolinfo" style={styles.divider}>
+        <Text>School Info:</Text>
+      </CardItem>
     );
     ['state', 'pance', 'accreditation'].forEach(addListItemFn);
     // Minimum Requirements:
     info.push(
-      <Divider title="Minimum Requirements:" key="requirements" />
+      <CardItem key="requirements" style={styles.divider}>
+        <Text>Minimum Requirements:</Text>
+      </CardItem>
     );
     ['minGpa', 'minSGpa', 'healthcareHours', 'greRequired'].forEach(addListItemFn);
     // Other Info:
     info.push(
-      <Divider title="Other Info:" key="otherinfo" />
+      <CardItem key="otherinfo" style={styles.divider}>
+        <Text>Other Info:</Text>
+      </CardItem>
     );
     // Add any misc items
     Object.keys(rest).forEach((key) => addListItemFn(rest[key]));
     ['misc','website'].forEach(addListItemFn);
-    info.push(
-      <ListItem
-        hideChevron
-        key="empty"
-        title="   "
-      />
-    );
 
     return info;
   };
   render() {
-    const { school } = this.props;
     return (
-      <View style={{ flex: 1 }}>
-        <Card
-          containerStyle={{ flex: 1 }}
-          dividerStyle={{ marginBottom: 0 }}
-          title={ school.name }
-        >
-          <ScrollView>
+      <Container style={styles.container}>
+        <Content>
+          <Card>
             { this.renderInfo() }
-          </ScrollView>
-        </Card>
-      </View>
+          </Card>
+        </Content>
+      </Container>
     );
   }
 }
 
-const styles = StyleSheet.create({
+const styles = {
+  divider: {
+    backgroundColor: '#e0e3e6',
+  },
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  standaloneRowBack: {
-    backgroundColor: '#dee8f7',
-  },
-  foregroundRow: {
-    backgroundColor: '#fff',
-  },
-  title: {
-    width: 200
-  },
-  hiddenItem: {
-    padding: 30
+    padding: 5,
   }
-});
+};

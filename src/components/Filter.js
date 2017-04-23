@@ -1,13 +1,22 @@
 // @flow
 import React from 'react';
 import { View } from 'react-native';
-import { Button, ListItem } from 'react-native-elements';
+import { ListItem } from 'react-native-elements';
+import {
+  Button,
+  Text,
+  Container,
+  Content,
+  Footer,
+  FooterTab,
+} from 'native-base';
 import {
   ActionSheetProvider,
   connectActionSheet,
 } from '@expo/react-native-action-sheet';
 
 import filterOptions from '../constants/filterOptions';
+import keyDisplayMap from '../constants/keyDisplayMap';
 
 type Props = {
   addFilter: Function,
@@ -32,9 +41,17 @@ export default class Filter extends React.Component {
 @connectActionSheet
 class FilterComponent extends React.Component {
   props: Props;
-  static navigationOptions = {
+  static navigationOptions = () => ({
     title: 'Filter',
-  };
+    headerRight: (
+      <Button
+        small
+        style={{ marginRight: 10 }}
+      >
+        <Text>Clear All</Text>
+      </Button>
+    )
+  });
   state = {
     property: '',
     modifiers: [],
@@ -170,8 +187,10 @@ class FilterComponent extends React.Component {
       property: '',
       modifiers: [],
     });
-    // const options = ['state', 'minGpa', 'minSGpa', 'healthcareHours', 'pance', 'greRequired', 'accreditation','Cancel'];
-    const options = [...Object.keys(filterOptions),'Cancel'];
+    const options = [
+      ...Object.keys(filterOptions).map(property => keyDisplayMap[property]),
+      'Cancel'
+    ];
     const cancelButtonIndex = options.length - 1;
     this.props.showActionSheetWithOptions(
       {
@@ -221,32 +240,31 @@ class FilterComponent extends React.Component {
 
   render() {
     return (
-      <View>
-        { this.props.filters.map(filter =>
-          <ListItem
-            key={ `${filter.property}_${filter.value || filter.min || filter.max}` }
-            title={ this._getFilterTitle(filter) }
-            hideChevron
-            component={ View }
-            containerStyle={{ backgroundColor: '#e0e3e6'}}
-          />
-        ) }
-        <Button
-          buttonStyle={{ marginTop: 15 }}
-          title="Filter Schools"
-          onPress={ this._openFilterActionSheet }
-        />
-        <Button
-          buttonStyle={{ marginTop: 15 }}
-          title="Sort By"
-          onPress={ this._openFilterActionSheet }
-        />
-        <Button
-          buttonStyle={{ marginTop: 15 }}
-          title="RESET"
-          onPress={ this.reset }
-        />
-      </View>
+      <Container>
+        <Content>
+          { this.props.filters.map(filter =>
+            <ListItem
+              key={ `${filter.property}_${filter.value || filter.min || filter.max}` }
+              title={ this._getFilterTitle(filter) }
+              hideChevron
+              component={ View }
+              containerStyle={{ backgroundColor: '#e0e3e6'}}
+            />
+          ) }
+        </Content>
+        <Footer>
+          <FooterTab>
+            <Button
+               // active
+              // info
+              // style={{ marginTop: 15 }}
+              onPress={ this._openFilterActionSheet }
+            >
+              <Text>Add Filter</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
+      </Container>
     );
   }
 }

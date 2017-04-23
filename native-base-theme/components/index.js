@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import _ from 'lodash';
 import headerTheme from './Header';
-import containerTheme from './Container'
+import containerTheme from './Container';
 import contentTheme from './Content';
 import buttonTheme from './Button';
 import titleTheme from './Title';
