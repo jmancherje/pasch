@@ -1,8 +1,10 @@
 // @flow
 import React from 'react';
 import { View, ScrollView, TouchableHighlight, StyleSheet } from 'react-native';
-import { List, ListItem, Icon, Button, Text } from 'react-native-elements';
-import { SwipeRow } from 'react-native-swipe-list-view';
+import { Button } from 'react-native-elements';
+// import { SwipeRow } from 'react-native-swipe-list-view';
+
+import { Container, List, Body, Content, Text, Icon, ListItem } from 'native-base';
 
 import Divider from './Divider';
 
@@ -15,13 +17,6 @@ const nonFavoriteIcon = {
     fontSize: 35,
   },
 };
-//      <Icon
-        // size={ 33 }
-        // name="gear"
-        // type="evilicon"
-        // color="#517fa4"
-        // containerStyle={{ marginRight: 20 }}
-      // />
 
 export default class SchoolList extends React.Component {
   props: {
@@ -76,67 +71,109 @@ export default class SchoolList extends React.Component {
     }
     return (
       <ListItem
-        title={ title }
         key={ index }
-        onPress={ this.props.removeFilter.bind(null, index) }
-        rightIcon={{ name: 'close', style: { color: 'red' } }}
-      />
+        // title={ title }
+        // onPress={ this.props.removeFilter.bind(null, index) }
+        // rightIcon={{ name: 'close', style: { color: 'red' } }}
+      >
+        <Text>{ title }</Text>
+      </ListItem>
     );
   };
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <List containerStyle={{ marginTop: 0 }}>
-          { this.props.filters.length ? (<Divider title="Active Filters:" />) : null }
-          { this.props.filters.map(this.renderFilter) }
-          { (!Array.isArray(this.props.schools) || !this.props.schools.length) ? <Divider title="No Schools, try adjusting filters" /> : (
-            this.props.schools.map((school, index, list) => {
-              if (school.isLabel) {
-                return <Divider title={school.title} key={school.title}/>;
-              }
-              return (
-                <SwipeRow
-                  key={`${school.name}_${school.state}_${index}`}
-                  leftOpenValue={75}
-                  rightOpenValue={-75}
-                  disableRightSwipe
-                >
+      <Container>
+        <Content>
+          <List containerStyle={{ marginTop: 0 }}>
+            { this.props.filters.length ? (<Divider title="Active Filters:" />) : null }
+            { this.props.filters.map(this.renderFilter) }
+            { (!Array.isArray(this.props.schools) || !this.props.schools.length) ? (
+              <ListItem itemDivider style={styleObj.divider}>
+                <Text>No Schools found, try adjusting filters</Text>
+              </ListItem>
+            ) : (
+              this.props.schools.map((school, index, list) => {
+                if (school.isLabel) {
+                  return (
+                    <ListItem itemDivider style={styleObj.divider} key={ school.title }>
+                      <Text>{ school.title }</Text>
+                    </ListItem>
+                  );
+                }
+                return (
                   <ListItem
-                    containerStyle={styles.standaloneRowBack}
-                    component={ TouchableHighlight }
-                    title={school.name}
-                    subtitle={school.state}
-                    onPress={ () => console.log('clicked back item') }
-                    rightIcon={ nonFavoriteIcon }
-                  />
-                  <ListItem
-                    containerStyle={styles.foregroundRow}
-                    component={ TouchableHighlight }
-                    onPress={ this.viewSchoolInfo.bind(this, {
-                      name: school.name,
-                      state: school.state,
-                    }) }
-                    title={school.name}
-                    subtitle={school.state}
-                    titleContainerStyle={styles.title}
-                    rightIcon={{ name: 'star', type: 'evilicon', color: '#517fa4', size: 33 }}
-                    avatar={{ uri: 'https://upload.wikimedia.org/wikipedia/en/6/61/Touro_University_California_seal.png' }}
-                  />
-                </SwipeRow>
-              );
-            })
-          ) }
-        </List>
-      </ScrollView>
+                    key={`${school.name}_${school.state}_${index}`}
+                    // containerStyle={styles.foregroundRow}
+                    // component={ TouchableHighlight }
+                    // onPress={ this.viewSchoolInfo.bind(this, {
+                    //   name: school.name,
+                    //   state: school.state,
+                    // }) }
+                    style={styleObj.listRow}
+                    // title={school.name}
+                    // subtitle={school.state}
+                    // titleContainerStyle={styles.title}
+                    // rightIcon={{ name: 'star', type: 'evilicon', color: '#517fa4', size: 33 }}
+                    // avatar={{ uri: 'https://upload.wikimedia.org/wikipedia/en/6/61/Touro_University_California_seal.png' }}
+                  >
+                    <Body style={styleObj.listBody}>
+                      <View style={styleObj.listLeft}>
+                        <Text>{ school.name }</Text>
+                        <Text note>{ school.state }</Text>
+                      </View>
+                      <View style={styleObj.listRight}>
+                        <Icon name="rocket" size={30} color="#900" />
+                      </View>
+                    </Body>
+                  </ListItem>
+                );
+              })
+            ) }
+          </List>
+        </Content>
+      </Container>
     );
   }
 }
 
+const styleObj = {
+  divider: {
+    backgroundColor: '#e0e3e6',
+    // borderColor: 'red',
+    // borderWidth: 1,
+  },
+  listRow: {
+    backgroundColor: '#fff',
+    borderColor: 'blue',
+    borderWidth: 1,
+    paddingRight: 0,
+    marginLeft: 0,
+  },
+  listBody: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    borderWidth: 1,
+    borderColor: 'red',
+  },
+  listLeft: {
+    flex: 9,
+  },
+  listRight: {
+    flex: 2,
+    borderWidth: 1,
+    borderColor: 'red',
+  },
+};
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    // flex: 1,
+    // backgroundColor: '#fff',
+  },
+  divider: {
+    backgroundColor: '#e0e3e6',
   },
   standaloneRowBack: {
     backgroundColor: '#dee8f7',
