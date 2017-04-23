@@ -18,6 +18,9 @@ const filters = (state = defaultFilters, { type, payload }) => {
       return [payload];
     case 'filters/ADD':
       return [...state, payload];
+    case 'filters/REMOVE':
+      // Payload is index of filter to remove
+      return state.filter((_, index) => index !== payload);
     default:
       return state;
   }
@@ -51,6 +54,21 @@ const selection = (state = {}, { type, payload }) => {
   }
 };
 
+const favorites = (state = {}, { type, payload }) => {
+  switch (type) {
+    case 'favorites/SET':
+      return { ...state, [payload.name]: true };
+    case 'favorite/REMOVE':
+      return { ...state, [payload.name]: false };
+    case 'favorite/TOGGLE':
+      return { ...state, [payload.name]: !state[payload.name] };
+    case 'favorite/INITIALIZE':
+      return { ...state, ...payload };
+    default:
+      return state;
+  }
+};
+
 const schools = (state = realData, { type, payload }) => {
   return state;
 };
@@ -61,4 +79,5 @@ export default combineReducers({
   schools,
   filters,
   selection,
+  favorites,
 });
