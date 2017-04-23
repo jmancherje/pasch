@@ -123,7 +123,7 @@ export default class SchoolList extends React.Component {
                         <Text note>{ school.state }</Text>
                       </View>
                       <View style={styleObj.listRight}>
-                        <Icon name="rocket" size={30} color="#900" />
+                        <Icon name="menu" size={30} color="#900" />
                       </View>
                     </Body>
                   </ListItem>
