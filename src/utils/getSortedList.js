@@ -51,7 +51,7 @@ type filterType = {
 export const filterBy = (schools: Array<Object>, filterList: Array<filterType>) => {
   let schoolList = schools.slice();
   filterList.forEach(filter => {
-    const { min, max, type, reverse, value, property } = filter;
+    const { min, max, type, value, property } = filter;
     // Above, below, between for numbers
     switch (type) {
       case 'above':
@@ -80,10 +80,12 @@ export const getSortedFilteredList = (
   schools: Array<Object>,
   sorters: Array<Object>,
   filters: Array<Object>,
+  favorites: Object,
 ) => {
   const filteredSchools = filterBy(schools, filters);
   const sortedSchools = sortBy(filteredSchools, sorters);
-  return addLabels(sortedSchools, sorters[0]);
+  const addFavorite = sortedSchools.map(school => ({ ...school, favorite: favorites[school.name] }));
+  return addLabels(addFavorite, sorters[0]);
 };
 
 // addLabels(sortBy(sorters, filterBy(filters, schools)), sorters[0]);

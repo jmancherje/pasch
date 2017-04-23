@@ -15,13 +15,6 @@ const nonFavoriteIcon = {
     fontSize: 35,
   },
 };
-//      <Icon
-        // size={ 33 }
-        // name="gear"
-        // type="evilicon"
-        // color="#517fa4"
-        // containerStyle={{ marginRight: 20 }}
-      // />
 
 export default class SchoolList extends React.Component {
   props: {
@@ -98,8 +91,8 @@ export default class SchoolList extends React.Component {
               return (
                 <SwipeRow
                   key={`${school.name}_${school.state}_${index}`}
-                  leftOpenValue={75}
-                  rightOpenValue={-75}
+                  // leftOpenValue={65}
+                  rightOpenValue={-65}
                   disableRightSwipe
                 >
                   <ListItem
@@ -107,6 +100,7 @@ export default class SchoolList extends React.Component {
                     component={ TouchableHighlight }
                     title={school.name}
                     subtitle={school.state}
+                    titleContainerStyle={styles.title}
                     onPress={ () => console.log('clicked back item') }
                     rightIcon={ nonFavoriteIcon }
                   />
@@ -120,7 +114,8 @@ export default class SchoolList extends React.Component {
                     title={school.name}
                     subtitle={school.state}
                     titleContainerStyle={styles.title}
-                    rightIcon={{ name: 'star', type: 'evilicon', color: '#517fa4', size: 33 }}
+                    rightIcon={{ name: 'heart', type: 'evilicon', color: '#517fa4', size: 33 }}
+                    // rightTitle={ "title" }
                     avatar={{ uri: 'https://upload.wikimedia.org/wikipedia/en/6/61/Touro_University_California_seal.png' }}
                   />
                 </SwipeRow>

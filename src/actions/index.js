@@ -1,3 +1,5 @@
+import { AsyncStorage } from 'react-native';
+
 export const setFilter = (payload) => ({
   type: 'filters/SET',
   payload,
@@ -10,6 +12,11 @@ export const addFilter = (payload) => ({
 
 export const resetFilter = (payload) => ({
   type: 'filters/RESET',
+});
+
+export const removeFilter = (payload) => ({
+  type: 'filters/REMOVE',
+  payload,
 });
 
 export const addSorter = (payload) => ({
@@ -28,3 +35,15 @@ export const setSelection = (payload: Object) => ({
   type: 'selection/SET',
   payload,
 });
+
+// Payload: { name: string };
+export const toggleFavorite = (payload: Object) => (dispatch, getState) => {
+  dispatch({
+    type: 'favorite/TOGGLE',
+    payload,
+  });
+  // Get state after the favorites update and update stored favorites
+  const favorites = getState().favorites;
+  AsyncStorage.setItem('favorites', JSON.stringify(favorites));
+};
+
