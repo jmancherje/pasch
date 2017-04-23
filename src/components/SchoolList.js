@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import { ScrollView, TouchableHighlight, StyleSheet } from 'react-native';
-import { List, ListItem, Icon } from 'react-native-elements';
+import { View, ScrollView, TouchableHighlight, StyleSheet } from 'react-native';
+import { List, ListItem, Icon, Button, Text } from 'react-native-elements';
 import { SwipeRow } from 'react-native-swipe-list-view';
 
 import Divider from './Divider';
@@ -15,22 +15,29 @@ const nonFavoriteIcon = {
     fontSize: 35,
   },
 };
+//      <Icon
+        // size={ 33 }
+        // name="gear"
+        // type="evilicon"
+        // color="#517fa4"
+        // containerStyle={{ marginRight: 20 }}
+      // />
 
 export default class SchoolList extends React.Component {
   props: {
     setSelection: Function,
+    removeFilter: Function,
     schools: Array<Object>,
     navigation: Object,
+    filters: Array<Object>,
   };
   static navigationOptions = ({ navigation }) => ({
-    title: 'PA Schools',
+    title: <Text>PA Schools</Text>,
     headerRight: (
-      <Icon
-        size={ 33 }
-        name="gear"
-        type="evilicon"
-        color="#517fa4"
-        containerStyle={{ marginRight: 20 }}
+      <Button
+        borderRadius={ 5 }
+        buttonStyle={{ padding: 6, backgroundColor: '#517fa4' }}
+        title="Filter"
         onPress={() => navigation.navigate('Filter')}
       />
     )
@@ -48,11 +55,41 @@ export default class SchoolList extends React.Component {
   //   this.props.favoriteSchool(selection);
   // };
 
+  renderFilter = (filter: {
+    type: string,
+    property: string,
+    value: string|number,
+    min: number,
+    max: number
+  }, index: number) => {
+    let title = '';
+    switch (filter.type) {
+      case 'value':
+        title = `${filter.property}: ${filter.value}`;
+        break;
+      case 'above':
+        title = `${filter.property} > ${filter.min}`;
+        break;
+      case 'below':
+        title = `${filter.property} < ${filter.max}`;
+        break;
+    }
+    return (
+      <ListItem
+        title={ title }
+        key={ index }
+        onPress={ this.props.removeFilter.bind(null, index) }
+        rightIcon={{ name: 'close', style: { color: 'red' } }}
+      />
+    );
+  };
+
   render() {
-    // Safety First:
     return (
       <ScrollView style={styles.container}>
         <List containerStyle={{ marginTop: 0 }}>
+          { this.props.filters.length ? (<Divider title="Active Filters:" />) : null }
+          { this.props.filters.map(this.renderFilter) }
           { (!Array.isArray(this.props.schools) || !this.props.schools.length) ? <Divider title="No Schools, try adjusting filters" /> : (
             this.props.schools.map((school, index, list) => {
               if (school.isLabel) {
