@@ -7,6 +7,7 @@ import { getSortedFilteredList } from '../utils/getSortedList';
 const mapStateToProps = (state) => {
   const { filters, sorters, schools } = state;
   return {
+    filters,
     schools: getSortedFilteredList(schools, sorters, filters),
   };
 };
