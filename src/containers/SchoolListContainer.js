@@ -1,7 +1,11 @@
 import { connect } from 'react-redux';
 
 import SchoolList from '../components/SchoolList';
-import { setSelection, removeFilter, toggleFavorite } from '../actions';
+import {
+  setSelection,
+  removeFilter,
+  toggleFavorite
+} from '../actions';
 import { getSortedFilteredList } from '../utils/getSortedList';
 
 const mapStateToProps = (state) => {

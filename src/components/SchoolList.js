@@ -18,6 +18,7 @@ export default class SchoolList extends React.Component {
   props: {
     setSelection: Function,
     removeFilter: Function,
+    toggleFavorite: Function,
     schools: Array<Object>,
     navigation: Object,
     filters: Array<Object>,
@@ -43,9 +44,9 @@ export default class SchoolList extends React.Component {
   };
 
   // TODO: same as above
-  // toggleSchoolFavorite = (selection) => {
-  //   this.props.favoriteSchool(selection);
-  // };
+  toggleFavorite = (name: string) => {
+    this.props.toggleFavorite({ name });
+  };
 
   renderFilter = (filter: {
     type: string,
@@ -113,8 +114,7 @@ export default class SchoolList extends React.Component {
                           name="heart"
                           type="evilicon"
                           color="#517fa4"
-                          // containerStyle={{ marginRight: 20 }}
-                          onPress={() => console.log('add favorite action here') }
+                          onPress={ this.toggleFavorite.bind(this, school.name) }
                         />
                       </View>
                     </Body>
