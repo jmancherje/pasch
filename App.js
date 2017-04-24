@@ -8,7 +8,7 @@ import getTheme from './native-base-theme/components';
 import platform from './native-base-theme/variables/platform';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import composeWithDevTools from 'remote-redux-devtools';
+import { composeWithDevTools } from 'remote-redux-devtools';
 
 import AppNavigator from './src/components/AppNavigator';
 import reducer from './src/reducers';
