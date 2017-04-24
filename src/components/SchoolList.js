@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { View } from 'react-native';
-import { Icon } from 'react-native-elements';
 import {
   Container,
   List,
@@ -13,6 +12,7 @@ import {
 } from 'native-base';
 
 import Divider from './Divider';
+import FavoriteIconContainer from '../containers/FavoriteIconContainer';
 
 export default class SchoolList extends React.Component {
   props: {
@@ -40,7 +40,9 @@ export default class SchoolList extends React.Component {
   // To prevent binding in render
   viewSchoolInfo = (selection: Object) => {
     this.props.setSelection(selection);
-    this.props.navigation.navigate('SchoolInfo', { title: selection.name });
+    this.props.navigation.navigate('SchoolInfo', {
+      name: selection.name,
+    });
   };
 
   // TODO: same as above
@@ -100,7 +102,7 @@ export default class SchoolList extends React.Component {
                     style={styles.listRow}
                     onPress={ this.viewSchoolInfo.bind(this, {
                       name: school.name,
-                      state: school.state,
+                      favorite: school.favorite,
                     }) }
                   >
                     <Body style={styles.listBody}>
@@ -109,12 +111,9 @@ export default class SchoolList extends React.Component {
                         <Text note>{ school.state }</Text>
                       </View>
                       <View style={styles.listRight}>
-                        <Icon
-                          size={ 30 }
-                          name="heart"
-                          type="evilicon"
-                          color="#517fa4"
-                          onPress={ this.toggleFavorite.bind(this, school.name) }
+                        <FavoriteIconContainer
+                          size={ 20 }
+                          name={ school.name }
                         />
                       </View>
                     </Body>

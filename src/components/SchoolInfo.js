@@ -1,7 +1,8 @@
 // @flow
 import React from 'react';
-import { Icon } from 'react-native-elements';
 import { Container, Content, Card, CardItem, Text } from 'native-base';
+
+import FavoriteIconContainer from '../containers/FavoriteIconContainer';
 
 import keyDisplayMap from '../constants/keyDisplayMap';
 import displayModifiers from '../constants/displayModifiers';
@@ -12,13 +13,8 @@ export default class SchoolInfo extends React.Component {
   };
   static navigationOptions = ({ navigation, screenProps }) => ({
     headerRight: (
-      <Icon
-        size={ 33 }
-        name="heart"
-        type="evilicon"
-        color="#517fa4"
-        containerStyle={{ marginRight: 20 }}
-        onPress={() => console.log('add favorite action here') }
+      <FavoriteIconContainer
+        name={ navigation.state.params.name }
       />
     )
   });
