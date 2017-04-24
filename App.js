@@ -5,11 +5,11 @@ import { addNavigationHelpers } from 'react-navigation';
 import { Provider, connect } from 'react-redux';
 import { StyleProvider } from 'native-base';
 import getTheme from './native-base-theme/components';
-import platform from './native-base-theme/variables/platform';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'remote-redux-devtools';
 
+import platform from './native-base-theme/variables/platform';
 import AppNavigator from './src/components/AppNavigator';
 import reducer from './src/reducers';
 
@@ -24,7 +24,6 @@ AsyncStorage.getItem('favorites')
     if (err) {
       throw err;
     }
-    console.log('results from initialize', results);
     if (results) {
       store.dispatch({
         type: 'favorites/INITIALIZE',

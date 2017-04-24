@@ -14,6 +14,7 @@ import {
 } from 'native-base';
 
 import FavoriteIconContainer from '../containers/FavoriteIconContainer';
+import SchoolListItemContainer from '../containers/SchoolListItemContainer';
 
 export default class SchoolList extends React.Component {
   props: {
@@ -82,7 +83,6 @@ export default class SchoolList extends React.Component {
   };
 
   render() {
-    console.log(this.props.schools[1]);
     return (
       <Container>
         <Content>
@@ -107,27 +107,11 @@ export default class SchoolList extends React.Component {
                   );
                 }
                 return (
-                  <ListItem
-                    key={`${school.name}_${school.state}_${index}`}
-                    style={styles.listRow}
-                    onPress={ this.viewSchoolInfo.bind(this, {
-                      name: school.name,
-                      favorite: school.favorite,
-                    }) }
-                  >
-                    <Body style={styles.listBody}>
-                      <View style={styles.listLeft}>
-                        <Text>{ school.name }</Text>
-                        <Text note>{ school.state }</Text>
-                      </View>
-                      <View style={styles.listRight}>
-                        <FavoriteIconContainer
-                          size={ 20 }
-                          name={ school.name }
-                        />
-                      </View>
-                    </Body>
-                  </ListItem>
+                  <SchoolListItemContainer
+                    key={ `${school.name}_${school.state}` }
+                    name={ school.name }
+                    navigation={ this.props.navigation }
+                  />
                 );
               })
             ) }
