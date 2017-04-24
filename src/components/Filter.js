@@ -255,9 +255,6 @@ class FilterComponent extends React.Component {
         <Footer>
           <FooterTab>
             <Button
-               // active
-              // info
-              // style={{ marginTop: 15 }}
               onPress={ this._openFilterActionSheet }
             >
               <Text>Add Filter</Text>

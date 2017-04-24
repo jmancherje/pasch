@@ -69,6 +69,17 @@ const favorites = (state = {}, { type, payload }) => {
   }
 };
 
+const isShowingFavorites = (state = false, { type }) => {
+  switch (type) {
+    case 'showFavorites/ON':
+      return true;
+    case 'showFavorites/OFF':
+      return false;
+    default:
+      return state;
+  }
+};
+
 const schools = (state = realData, { type, payload }) => {
   return state;
 };
@@ -80,4 +91,5 @@ export default combineReducers({
   filters,
   selection,
   favorites,
+  isShowingFavorites,
 });

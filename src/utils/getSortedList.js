@@ -81,11 +81,16 @@ export const getSortedFilteredList = (
   sorters: Array<Object>,
   filters: Array<Object>,
   favorites: Object,
+  isShowingFavorites: boolean,
 ) => {
   const filteredSchools = filterBy(schools, filters);
   const sortedSchools = sortBy(filteredSchools, sorters);
   const addFavorite = sortedSchools.map(school => ({ ...school, favorite: favorites[school.name] }));
-  return addLabels(addFavorite, sorters[0]);
+  const labeledSchools = addLabels(addFavorite, sorters[0]);
+  if (isShowingFavorites) {
+    return labeledSchools.filter(school => school.favorite);
+  }
+  return labeledSchools;
 };
 
 // addLabels(sortBy(sorters, filterBy(filters, schools)), sorters[0]);

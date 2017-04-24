@@ -47,3 +47,9 @@ export const toggleFavorite = (payload: Object) => (dispatch, getState) => {
   AsyncStorage.setItem('favorites', JSON.stringify(favorites));
 };
 
+export const showFavorites = () => ({
+  type: 'showFavorites/ON',
+});
+export const showAll = () => ({
+  type: 'showFavorites/OFF',
+});

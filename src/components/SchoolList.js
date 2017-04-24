@@ -9,9 +9,10 @@ import {
   Text,
   ListItem,
   Button,
+  Footer,
+  FooterTab,
 } from 'native-base';
 
-import Divider from './Divider';
 import FavoriteIconContainer from '../containers/FavoriteIconContainer';
 
 export default class SchoolList extends React.Component {
@@ -19,10 +20,14 @@ export default class SchoolList extends React.Component {
     setSelection: Function,
     removeFilter: Function,
     toggleFavorite: Function,
+    showFavorites: Function,
+    showAll: Function,
     schools: Array<Object>,
     navigation: Object,
     filters: Array<Object>,
+    isShowingFavorites: boolean,
   };
+
   static navigationOptions = ({ navigation }) => ({
     title: <Text>All Schools</Text>,
     headerRight: (
@@ -77,11 +82,16 @@ export default class SchoolList extends React.Component {
   };
 
   render() {
+    console.log(this.props.schools[1]);
     return (
       <Container>
         <Content>
           <List containerStyle={{ marginTop: 0 }}>
-            { this.props.filters.length ? (<Divider title="Active Filters:" />) : null }
+            { this.props.filters.length ? (
+              <ListItem itemDivider style={styles.divider}>
+                <Text>Active Filters:</Text>
+              </ListItem>
+            ) : null }
             { this.props.filters.map(this.renderFilter) }
             { (!Array.isArray(this.props.schools) || !this.props.schools.length) ? (
               <ListItem itemDivider style={styles.divider}>
@@ -123,6 +133,24 @@ export default class SchoolList extends React.Component {
             ) }
           </List>
         </Content>
+        <Footer>
+          <FooterTab>
+            <Button
+              active={ !this.props.isShowingFavorites }
+              onPress={ this.props.showAll }
+            >
+              <Text>All Schools</Text>
+            </Button>
+          </FooterTab>
+          <FooterTab>
+            <Button
+              active={ this.props.isShowingFavorites }
+              onPress={ this.props.showFavorites }
+            >
+              <Text>My Favorites</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
       </Container>
     );
   }
