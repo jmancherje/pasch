@@ -4,24 +4,72 @@ import {
   Animated,
   StyleSheet,
   View,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
-const Heart = ({ filled, style, ...props }: { filled: boolean, style: Object }) => {
-  const centerNonFilled = (
-    <View style={[StyleSheet.absoluteFill, styles.fit]}>
-      <View style={[styles.leftHeart, styles.heartShape, styles.emptyFill]} />
-      <View style={[styles.rightHeart, styles.heartShape, styles.emptyFill]} />
-    </View>
-  );
-  const fillStyle = filled ? styles.filledHeart : styles.empty;
-  return (
-    <Animated.View { ...props } style={[styles.heart, style]}>
-      <View style={[styles.leftHeart, styles.heartShape, fillStyle]} />
-      <View style={[styles.rightHeart, styles.heartShape, fillStyle]} />
-      { !filled && centerNonFilled }
-    </Animated.View>
-  );
-};
+class Heart extends React.Component {
+  props: {
+    filled: boolean,
+    style: Object,
+    toggleFavorite: Function,
+    name: string,
+  };
+
+  state = {
+    // liked: false,
+    scale: new Animated.Value(0),
+    animations: [
+      new Animated.Value(0),
+      new Animated.Value(0),
+      new Animated.Value(0),
+      new Animated.Value(0),
+      new Animated.Value(0),
+      new Animated.Value(0),
+    ]
+  };
+
+  triggerLike = () => {
+    this.props.toggleFavorite({ name: this.props.name });
+    Animated.spring(this.state.scale, {
+      toValue: 2,
+      friction: 3
+    }).start(() => {
+      this.state.scale.setValue(0);
+    });
+  };
+
+  render() {
+    const { filled, style, ...props } = this.props;
+    const centerNonFilled = (
+      <View style={[StyleSheet.absoluteFill, styles.fit]}>
+        <View style={[styles.leftHeart, styles.heartShape, styles.emptyFill]} />
+        <View style={[styles.rightHeart, styles.heartShape, styles.emptyFill]} />
+      </View>
+    );
+    const fillStyle = filled ? styles.filledHeart : styles.empty;
+    const bouncyHeart = this.state.scale.interpolate({
+      inputRange: [0, 1, 2],
+      outputRange: [1, 0.8, 1],
+    });
+    const heartButtonStyle = {
+      transform: [
+        { scale: bouncyHeart }
+      ]
+    };
+          // <FavoriteIconContainer name={ this.props.name } />
+    return (
+      <TouchableWithoutFeedback onPress={ this.triggerLike }>
+        <Animated.View style={ heartButtonStyle }>
+          <Animated.View { ...props } style={[styles.heart, style]}>
+            <View style={[styles.leftHeart, styles.heartShape, fillStyle]} />
+            <View style={[styles.rightHeart, styles.heartShape, fillStyle]} />
+            { !filled && centerNonFilled }
+          </Animated.View>
+        </Animated.View>
+      </TouchableWithoutFeedback>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   heart: {

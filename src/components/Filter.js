@@ -18,6 +18,8 @@ import {
 import filterOptions from '../constants/filterOptions';
 import keyDisplayMap from '../constants/keyDisplayMap';
 
+import FavoriteIconContainer from '../containers/FavoriteIconContainer';
+
 type Props = {
   addFilter: Function,
   resetFilter: Function,
@@ -41,15 +43,10 @@ export default class Filter extends React.Component {
 @connectActionSheet
 class FilterComponent extends React.Component {
   props: Props;
-  static navigationOptions = () => ({
+  static navigationOptions = ({ navigation }) => ({
     title: 'Filter',
     headerRight: (
-      <Button
-        small
-        style={{ marginRight: 10 }}
-      >
-        <Text>Clear All</Text>
-      </Button>
+      <FavoriteIconContainer name={ navigation.params.state.name } />
     )
   });
   state = {

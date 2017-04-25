@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 
 import {
-  setSelection
+  setSelection,
 } from '../actions';
 
 import SchoolListItem from '../components/SchoolListItem';
@@ -16,5 +16,5 @@ const mapStateToProps = (state, { name }) => {
 };
 
 export default connect(mapStateToProps, {
-  setSelection
+  setSelection,
 })(SchoolListItem);
