@@ -3,7 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { toggleFavorite } from '../actions';
-import { Icon } from 'react-native-elements';
+// import { Icon } from 'react-native-elements';
+import { Button, Icon } from 'native-base';
 
 class FavoriteIcon extends React.Component {
   props: {
@@ -11,6 +12,7 @@ class FavoriteIcon extends React.Component {
     isFavorite: boolean,
     toggleFavorite: Function,
     size?: number,
+    style?: Object,
   };
 
   toggleFavorite = () => {
@@ -20,14 +22,16 @@ class FavoriteIcon extends React.Component {
   render() {
     const { isFavorite, size = 18 } = this.props;
     return (
-      <Icon
-        size={ size }
-        name={ isFavorite ? 'heart' : 'heart-o' }
-        type="font-awesome"
-        color="#517fa4"
-        containerStyle={{ marginRight: 20 }}
+      <Button
+        transparent
         onPress={ this.toggleFavorite }
-      />
+      >
+        <Icon
+          name="heart"
+          active={ isFavorite }
+          style={{ color: isFavorite ? '#e31745' : 'grey', fontSize: size }}
+        />
+      </Button>
     );
   }
 }

@@ -1,10 +1,8 @@
 // @flow
 import React from 'react';
-import { View } from 'react-native';
 import {
   Container,
   List,
-  Body,
   Content,
   Text,
   ListItem,
@@ -13,8 +11,13 @@ import {
   FooterTab,
 } from 'native-base';
 
-import FavoriteIconContainer from '../containers/FavoriteIconContainer';
 import SchoolListItemContainer from '../containers/SchoolListItemContainer';
+
+const Divider = ({ text }: { text: string }) => (
+  <ListItem itemDivider style={styles.divider}>
+    <Text>{ text }</Text>
+  </ListItem>
+);
 
 export default class SchoolList extends React.Component {
   props: {
@@ -33,7 +36,7 @@ export default class SchoolList extends React.Component {
     title: <Text>All Schools</Text>,
     headerRight: (
       <Button
-        small
+        transparent
         style={{ marginRight: 10 }}
         onPress={() => navigation.navigate('Filter')}
       >
@@ -88,22 +91,16 @@ export default class SchoolList extends React.Component {
         <Content>
           <List containerStyle={{ marginTop: 0 }}>
             { this.props.filters.length ? (
-              <ListItem itemDivider style={styles.divider}>
-                <Text>Active Filters:</Text>
-              </ListItem>
+              <Divider text="Active Filters:" />
             ) : null }
             { this.props.filters.map(this.renderFilter) }
             { (!Array.isArray(this.props.schools) || !this.props.schools.length) ? (
-              <ListItem itemDivider style={styles.divider}>
-                <Text>No Schools found, try adjusting filters</Text>
-              </ListItem>
+              <Divider text="No Schools found, try adjusting filters" />
             ) : (
               this.props.schools.map((school, index, list) => {
                 if (school.isLabel) {
                   return (
-                    <ListItem itemDivider style={styles.divider} key={ school.title }>
-                      <Text>{ school.title }</Text>
-                    </ListItem>
+                    <Divider text={ school.title } key={ school.title } />
                   );
                 }
                 return (

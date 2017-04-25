@@ -1,3 +1,4 @@
+// @flow
 import { combineReducers } from 'redux';
 
 import AppNavigator from '../components/AppNavigator';
@@ -63,6 +64,7 @@ const favorites = (state = {}, { type, payload }) => {
     case 'favorite/TOGGLE':
       return { ...state, [payload.name]: !state[payload.name] };
     case 'favorite/INITIALIZE':
+      console.log('initialize', payload);
       return { ...state, ...payload };
     default:
       return state;

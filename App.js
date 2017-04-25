@@ -26,7 +26,7 @@ AsyncStorage.getItem('favorites')
     }
     if (results) {
       store.dispatch({
-        type: 'favorites/INITIALIZE',
+        type: 'favorite/INITIALIZE',
         payload: JSON.parse(results),
       });
     }

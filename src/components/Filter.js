@@ -219,10 +219,6 @@ class FilterComponent extends React.Component {
     );
   };
 
-  // _openSortByActionSheet = () => {
-  //   let options = []
-  // };
-
   reset = () => {
     this.props.resetFilter();
     this.props.resetSorter();

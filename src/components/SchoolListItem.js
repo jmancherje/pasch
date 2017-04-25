@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
-import { View } from 'react-native';
-import { ListItem, Body, Text } from 'native-base';
+// import { View } from 'react-native';
+import { ListItem, Body, Text, Right, Left } from 'native-base';
 
 import FavoriteIconContainer from '../containers/FavoriteIconContainer';
 
@@ -31,18 +31,17 @@ export default class SchoolListItem extends React.Component {
           favorite: isFavorite,
         }) }
       >
-        <Body style={styles.listBody}>
-          <View style={styles.listLeft}>
-            <Text>{ name }</Text>
-            <Text note>{ state }</Text>
-          </View>
-          <View style={styles.listRight}>
-            <FavoriteIconContainer
-              size={ 20 }
-              name={ name }
-            />
-          </View>
+        <Body>
+          <Text>{ name }</Text>
+          <Text note>{ state }</Text>
         </Body>
+        <Right>
+          <FavoriteIconContainer
+            // size={ 20 }
+            // style={styles.listRight}
+            name={ name }
+          />
+        </Right>
       </ListItem>
     );
   }
@@ -61,10 +60,14 @@ const styles = {
   },
   listLeft: {
     flex: 11,
+    borderWidth: 1,
+    borderColor: 'red',
   },
   listRight: {
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'blue',
   },
 };
