@@ -48,8 +48,8 @@ class Heart extends React.Component {
     );
     const fillStyle = filled ? styles.filledHeart : styles.empty;
     const bouncyHeart = this.state.scale.interpolate({
-      inputRange: [0, 1, 2],
-      outputRange: [1, 0.8, 1],
+      inputRange: [0, 0.5, 2],
+      outputRange: [1, 0.5, 1],
     });
     const heartButtonStyle = {
       transform: [
