@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
   },
   filledHeart: {
-    backgroundColor: '#e31745',
+    backgroundColor: '#f29bae',
   },
   fit: {
     transform: [
