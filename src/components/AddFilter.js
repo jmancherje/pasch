@@ -23,8 +23,8 @@ import {
 //   connectActionSheet,
 // } from '@expo/react-native-action-sheet';
 
-import filterOptions from '../constants/filterOptions';
-import keyDisplayMap from '../constants/keyDisplayMap';
+// import filterOptions from '../constants/filterOptions';
+// import keyDisplayMap from '../constants/keyDisplayMap';
 
 // import FavoriteIconContainer from '../containers/FavoriteIconContainer';
 

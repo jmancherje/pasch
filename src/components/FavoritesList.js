@@ -36,7 +36,7 @@ export default class FavoritesList extends React.Component {
       color: '#312e4e',
     },
     tabBarLabel: 'My Schools',
-    headerBackTitle: 'back',
+    headerBackTitle: 'Back',
     tabBarIcon: (
       <Icon name="person" />
     ),

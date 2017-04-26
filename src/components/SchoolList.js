@@ -38,7 +38,7 @@ export default class SchoolList extends React.Component {
       color: '#312e4e'
     },
     tabBarLabel: 'All Schools',
-    headerBackTitle: 'back',
+    headerBackTitle: 'Back',
     tabBarIcon: (
       <Icon name="list" />
     ),
