@@ -7,8 +7,6 @@ import {
   Text,
   ListItem,
   Button,
-  // Footer,
-  // FooterTab,
 } from 'native-base';
 import { Icon } from 'react-native-elements';
 
@@ -20,7 +18,7 @@ const Divider = ({ text }: { text: string }) => (
   </ListItem>
 );
 
-export default class SchoolList extends React.Component {
+export default class FavoritesList extends React.Component {
   props: {
     setSelection: Function,
     removeFilter: Function,
@@ -33,14 +31,14 @@ export default class SchoolList extends React.Component {
   };
 
   static navigationOptions = ({ navigation }) => ({
-    title: 'All Schools',
+    title: 'My Schools',
     headerTitleStyle: {
-      color: '#312e4e'
+      color: '#312e4e',
     },
-    tabBarLabel: 'All Schools',
+    tabBarLabel: 'My Schools',
     headerBackTitle: 'back',
     tabBarIcon: (
-      <Icon name="list" />
+      <Icon name="person" />
     ),
     headerRight: (
       <Button
@@ -53,6 +51,10 @@ export default class SchoolList extends React.Component {
     )
   });
 
+  showAll = () => {
+    this.props.navigation.navigate('AllSchools');
+  };
+
   // TODO: make each list item it's own component
   // To prevent binding in render
   viewSchoolInfo = (selection: Object) => {
@@ -61,10 +63,6 @@ export default class SchoolList extends React.Component {
       name: selection.name,
     });
   };
-
-  showFavorites = () => {
-    this.props.navigation.navigate('FavoriteSchools');
-  }
 
   // TODO: same as above
   toggleFavorite = (name: string) => {
@@ -117,6 +115,7 @@ export default class SchoolList extends React.Component {
                 }
                 return (
                   <SchoolListItemContainer
+                    hideFavoriteIcon
                     key={ `${school.name}_${school.state}` }
                     name={ school.name }
                     navigation={ this.props.navigation }
@@ -126,7 +125,6 @@ export default class SchoolList extends React.Component {
             ) }
           </List>
         </Content>
-
       </Container>
     );
   }
@@ -135,5 +133,23 @@ export default class SchoolList extends React.Component {
 const styles = {
   divider: {
     backgroundColor: '#e0e3e6',
+  },
+  listRow: {
+    backgroundColor: '#fff',
+    paddingRight: 0,
+    marginLeft: 0,
+  },
+  listBody: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+  },
+  listLeft: {
+    flex: 11,
+  },
+  listRight: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 };

@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 
-import SchoolList from '../components/SchoolList';
+import FavoritesList from '../components/FavoritesList';
 import {
   setSelection,
-  removeFilter,
+  // removeFilter,
   toggleFavorite,
   showFavorites,
   showAll,
@@ -14,14 +14,14 @@ const mapStateToProps = (state) => {
   const { filters, sorters, schools, favorites } = state;
   return {
     filters,
-    schools: getSortedFilteredList(schools, sorters, filters, favorites, false),
+    schools: getSortedFilteredList(schools, sorters, filters, favorites, true),
   };
 };
 
 export default connect(mapStateToProps, {
-  removeFilter,
+  // removeFilter,
   setSelection,
   toggleFavorite,
   showFavorites,
   showAll,
-})(SchoolList);
+})(FavoritesList);

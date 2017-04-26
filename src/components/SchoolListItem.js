@@ -1,6 +1,12 @@
 // @flow
 import React from 'react';
-import { ListItem, Body, Text, Right } from 'native-base';
+import {
+  ListItem,
+  Body,
+  Text,
+  Right,
+} from 'native-base';
+import { Icon } from 'react-native-elements';
 
 import FavoriteIconContainer from '../containers/FavoriteIconContainer';
 
@@ -8,9 +14,10 @@ export default class SchoolListItem extends React.Component {
   props: {
     name: string,
     state: string,
+    navigation: Object,
     isFavorite: boolean,
     setSelection: Function,
-    navigation: Object,
+    hideFavoriteIcon: boolean,
   };
 
   viewSchoolInfo = () => {
@@ -20,19 +27,29 @@ export default class SchoolListItem extends React.Component {
   };
 
   render() {
-    const { name, state } = this.props;
+    const { name, state, hideFavoriteIcon } = this.props;
     return (
       <ListItem
         key={`${name}_${state}`}
         style={styles.listRow}
         onPress={ this.viewSchoolInfo }
       >
-        <Body>
+        { /*<Left style={styles.left}>
+          <Icon
+            name="chevron-right"
+          />
+        </Left>*/ }
+        <Body style={styles.body}>
           <Text>{ name }</Text>
           <Text note>{ state }</Text>
         </Body>
-        <Right>
-          <FavoriteIconContainer name={ this.props.name } />
+        <Right style={styles.right}>
+          { !hideFavoriteIcon ?
+            (<FavoriteIconContainer name={ this.props.name } />) :
+            (<Icon
+              name="chevron-right"
+            />)
+          }
         </Right>
       </ListItem>
     );
@@ -45,21 +62,19 @@ const styles = {
     paddingRight: 0,
     marginLeft: 0,
   },
-  listBody: {
+  left: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'stretch',
+    // borderWidth: 1,
+    // borderColor: 'green',
   },
-  listLeft: {
+  body: {
     flex: 11,
-    borderWidth: 1,
-    borderColor: 'red',
+    // borderWidth: 1,
+    // borderColor: 'red',
   },
-  listRight: {
+  right: {
     flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'blue',
-  },
+    // borderWidth: 1,
+    // borderColor: 'blue',
+  }
 };
