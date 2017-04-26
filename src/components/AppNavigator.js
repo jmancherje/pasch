@@ -1,6 +1,7 @@
 import { StackNavigator, TabNavigator } from 'react-navigation';
 
-import FilterContainer from '../containers/FilterContainer';
+// import FilterContainer from '../containers/FilterContainer';
+import AddFilter from './AddFilter';
 import SchoolListContainer from '../containers/SchoolListContainer';
 import SchoolInfoContainer from '../containers/SchoolInfoContainer';
 import FavoritesListContainer from '../containers/FavoritesListContainer';
@@ -20,7 +21,7 @@ const SchoolListTabNavigator = TabNavigator({
 
 export default StackNavigator({
   SchoolList: { screen: SchoolListTabNavigator },
-  Filter: { screen: FilterContainer },
+  Filter: { screen: AddFilter },
   SchoolInfo: { screen: SchoolInfoContainer },
 }, {
   mode: 'modal',

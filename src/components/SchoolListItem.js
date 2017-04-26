@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+// import { Dimensions } from 'react-native';
 import {
   ListItem,
   Body,
@@ -7,6 +8,7 @@ import {
   Right,
 } from 'native-base';
 import { Icon } from 'react-native-elements';
+// const { width } = Dimensions.get('window');
 
 import FavoriteIconContainer from '../containers/FavoriteIconContainer';
 
@@ -34,7 +36,7 @@ export default class SchoolListItem extends React.Component {
         style={styles.listRow}
         onPress={ this.viewSchoolInfo }
       >
-        { /*<Left style={styles.left}>
+        { /* TODO: get avatars for schools <Left style={styles.left}>
           <Icon
             name="chevron-right"
           />
@@ -64,16 +66,18 @@ const styles = {
   },
   left: {
     flex: 1,
-    // borderWidth: 1,
-    // borderColor: 'green',
+    borderWidth: 1,
+    borderColor: 'green',
   },
   body: {
     flex: 11,
+    // width: (width * 0.83),
     // borderWidth: 1,
     // borderColor: 'red',
   },
   right: {
     flex: 2,
+    // width: (width * 0.17),
     // borderWidth: 1,
     // borderColor: 'blue',
   }
