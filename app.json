@@ -1,6 +1,8 @@
 {
   "expo": {
     "sdkVersion": "15.0.0",
-    "name": "TestApp498"
+    "name": "wip",
+    "slug": "wip",
+    "orientation": "portrait"
   }
 }
