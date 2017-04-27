@@ -12,12 +12,20 @@ const navReducer = (state, action) => {
 
 const defaultFilters = [];
 const filters = (state = defaultFilters, { type, payload }) => {
+  let filterList = [...state];
+  let filterIndex;
   switch (type) {
     case 'filters/RESET':
       return [...defaultFilters];
     case 'filters/SET':
       return [payload];
     case 'filters/ADD':
+      filterIndex = filterList.findIndex(filter => filter.property === payload.property);
+      if (filterIndex > -1) {
+        // Modify existing
+        filterList[filterIndex] = payload;
+        return filterList;
+      }
       return [...state, payload];
     case 'filters/REMOVE':
       // Payload is index of filter to remove
