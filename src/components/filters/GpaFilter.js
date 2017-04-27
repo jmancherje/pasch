@@ -139,8 +139,8 @@ export default class GpaFilter extends React.Component {
                 </Button>
               </Grid>
             </Body>
-          </ListItem>) :
-        <Text>{this.props.filter.type} {this.props.filter.min} {this.props.filter.max}</Text> }
+          </ListItem>)
+        : null }
       </View>
     );
   }
