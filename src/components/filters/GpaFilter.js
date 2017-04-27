@@ -110,6 +110,11 @@ export default class GpaFilter extends React.Component {
           (<ListItem>
             <Body>
               <Grid>
+                <Row>
+                  <Text>
+                    { filterDescription }
+                  </Text>
+                </Row>
                 <MultiSlider
                   trackStyle={styles.track}
                   min={ 2.5 }
@@ -119,13 +124,8 @@ export default class GpaFilter extends React.Component {
                   onValuesChangeStart={(values) => console.log('start',values)}
                   onValuesChange={(values) => { this.setState({ lowerBound: values[0], upperBound: values[1] })}}
                   onValuesChangeStop={(values) => console.log('end', values)}
-                  // touchDimensions={{ slipDisplacement: 0 }}
+                  touchDimensions={{ height: 50, width: 50, borderRadius: 25, slipDisplacement: 50 }}
                 />
-                <Row>
-                  <Text>
-                    { filterDescription }
-                  </Text>
-                </Row>
                 <Button block small onPress={ this.addFilter } style={{ marginTop: 10 }}>
                   <Text>Add Filter</Text>
                 </Button>
