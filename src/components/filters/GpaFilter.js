@@ -14,6 +14,7 @@ import {
   Grid,
   Col,
 } from 'native-base';
+import MultiSlider from 'react-native-multi-slider';
 
 const initialMinGpa = 2.5;
 const initialMaxGpa = 4.0;
@@ -109,26 +110,17 @@ export default class GpaFilter extends React.Component {
           (<ListItem>
             <Body>
               <Grid>
-                <Row>
-                  <Col>
-                    <Slider
-                      minimumValue={ 2.5 }
-                      maximumValue={ 4.0 }
-                      step={ 0.05 }
-                      value={ this.state.lowerBound }
-                      onValueChange={ this.setMin }
-                    />
-                  </Col>
-                  <Col>
-                    <Slider
-                      minimumValue={ 2.5 }
-                      maximumValue={ 4.0 }
-                      step={ 0.05 }
-                      value={ this.state.upperBound }
-                      onValueChange={ this.setMax }
-                    />
-                  </Col>
-                </Row>
+                <MultiSlider
+                  trackStyle={styles.track}
+                  min={ 2.5 }
+                  max={ 4.0 }
+                  step={ 0.05 }
+                  values={ [2.5, 4.0] }
+                  onValuesChangeStart={(values) => console.log('start',values)}
+                  onValuesChange={(values) => { this.setState({ lowerBound: values[0], upperBound: values[1] })}}
+                  onValuesChangeStop={(values) => console.log('end', values)}
+                  // touchDimensions={{ slipDisplacement: 0 }}
+                />
                 <Row>
                   <Text>
                     { filterDescription }
@@ -145,3 +137,9 @@ export default class GpaFilter extends React.Component {
     );
   }
 }
+
+const styles = {
+  track: {
+    height: 2.0
+  }
+};
