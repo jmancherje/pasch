@@ -6,11 +6,11 @@ import {
 import {
   Text,
   Body,
-  CheckBox,
   ListItem,
   Row,
   Grid,
 } from 'native-base';
+import Switch from 'react-native-switch-pro';
 import MultiSlider from 'react-native-multi-slider';
 
 import keyDisplayMap from '../constants/keyDisplayMap';
@@ -80,26 +80,26 @@ export default class GpaFilter extends React.Component {
   };
 
   render() {
-    const { step, min, max, filter } = this.props;
+    const { step, min, max, filter, isActive } = this.props;
     const startingMin = typeof filter.min === 'number' ? filter.min : min;
     const startingMax = typeof filter.max === 'number' ? filter.max : max;
     return (
       <View>
-        <ListItem onPress={ this.toggleSelection } >
-          <CheckBox checked={ this.props.isActive } onPress={ this.toggleSelection }  />
+        <ListItem onPress={ this.toggleSelection } style={ isActive ? styles.hideBorder : null }>
           <Body>
             <Text>{ keyDisplayMap[this.props.property] }</Text>
+            { isActive ? (
+              <Text>
+                { `${this.displayValue(this.state.lower)} to ${this.displayValue(this.state.upper)}` }
+              </Text>
+            ) : null }
           </Body>
+          <Switch value={ isActive } onSyncPress={ this.toggleSelection } />
         </ListItem>
         { this.props.isActive ? (
           <ListItem>
             <Body>
               <Grid>
-                <Row style={ styles.centerRow }>
-                  <Text>
-                    { `${this.displayValue(this.state.lower)} to ${this.displayValue(this.state.upper)}` }
-                  </Text>
-                </Row>
                 <Row style={ [styles.centerRow, styles.sliderRow] }>
                   <MultiSlider
                     trackStyle={styles.track}
@@ -123,7 +123,7 @@ export default class GpaFilter extends React.Component {
 
 const styles = {
   track: {
-    height: 2.0
+    height: 2.0,
   },
   centerRow: {
     flex: 1,
@@ -132,7 +132,10 @@ const styles = {
     justifyContent: 'center',
   },
   sliderRow: {
-    marginTop: 14,
-    marginBottom: 5,
-  }
+    marginTop: -17,
+    marginBottom: 3,
+  },
+  hideBorder: {
+    borderBottomWidth: 0,
+  },
 };
