@@ -5,7 +5,7 @@ export default {
   accreditation: 'Accreditation',
   minGpa: 'Minimum GPA',
   minSGpa: 'Minimum Science GPA',
-  healthcareHours: 'Required Health Care Hours',
+  healthcareHours: 'Health Care Hours',
   greRequired: 'GRE Required',
   misc: 'Notes',
   website: 'Source(s)'

@@ -19,6 +19,11 @@ export const removeFilter = (payload) => ({
   payload,
 });
 
+export const updateFilter = (payload) => ({
+  type: 'filters/UPDATE',
+  payload,
+});
+
 export const addSorter = (payload) => ({
   type: 'sorters/ADD',
   payload,

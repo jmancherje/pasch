@@ -9,6 +9,8 @@ import {
   Body,
 } from 'native-base';
 
+import AddFilterRowContainer from '../containers/AddFilterRowContainer';
+
 import GpaFilterContainer from '../containers/filter-items/GpaFilterContainer';
 
 const Divider = ({ text }: { text: string }) => (
@@ -38,15 +40,26 @@ export default class FilterComponent extends React.Component {
       <Container>
         <Content>
           <Divider text="Minimum Requirements" />
-          <GpaFilterContainer
+          <AddFilterRowContainer
             property="minGpa"
+            min={ 2.5 }
+            max={ 4.0 }
+            step={ 0.05 }
+            toFixed={ 2 }
           />
-          <ListItem>
-            <CheckBox />
-            <Body>
-              <Text>Patient Contact Hours</Text>
-            </Body>
-          </ListItem>
+          <AddFilterRowContainer
+            property="minSGpa"
+            min={ 2.5 }
+            max={ 4.0 }
+            step={ 0.05 }
+            toFixed={ 2 }
+          />
+          <AddFilterRowContainer
+            property="healthcareHours"
+            min={ 0 }
+            max={ 5000 }
+            step={ 100 }
+          />
           <ListItem>
             <CheckBox />
             <Body>

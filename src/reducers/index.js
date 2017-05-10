@@ -10,7 +10,35 @@ const navReducer = (state, action) => {
   return newState ? newState : state;
 };
 
-const defaultFilters = [];
+const updateFilter = (state, filterUpdate) => {
+  const filterList = [...state];
+  const index = filterList.findIndex(filter => filter.property === filterUpdate.property);
+  if (index === -1) {
+    return state;
+  }
+  filterList[index] = Object.assign(filterList[index], filterUpdate);
+  return filterList;
+};
+
+const defaultFilters = [{
+  property: 'minGpa',
+  type: 'between',
+  min: 2.5,
+  max: 4.0,
+  isActive: false,
+}, {
+  property: 'minSGpa',
+  type: 'between',
+  min: 2.5,
+  max: 4.0,
+  isActive: false,
+}, {
+  property: 'healthcareHours',
+  type: 'between',
+  min: 0,
+  max: 5000,
+  isActive: false,
+}];
 const filters = (state = defaultFilters, { type, payload }) => {
   let filterList = [...state];
   let filterIndex;
@@ -27,9 +55,11 @@ const filters = (state = defaultFilters, { type, payload }) => {
         return filterList;
       }
       return [...state, payload];
+    case 'filters/UPDATE':
+      return updateFilter(state, payload);
     case 'filters/REMOVE':
       // Payload is index of filter to remove
-      return state.filter((_, index) => index !== payload);
+      return updateFilter(state, { property: payload.property, isActive: false });
     default:
       return state;
   }
