@@ -2,7 +2,6 @@
 import React from 'react';
 import {
   ScrollView,
-  View,
 } from 'react-native';
 import {
   Container,
@@ -15,7 +14,7 @@ import {
 import { Icon } from 'react-native-elements';
 
 import SchoolListItemContainer from '../containers/SchoolListItemContainer';
-import keyDisplayMap from '../constants/keyDisplayMap';
+import FilterScrollContainer from '../containers/FilterScrollContainer';
 
 const Divider = ({ text }: { text: string }) => (
   <ListItem itemDivider style={styles.divider}>
@@ -25,11 +24,7 @@ const Divider = ({ text }: { text: string }) => (
 
 export default class SchoolList extends React.Component {
   props: {
-    setSelection: Function,
-    removeFilter: Function,
-    toggleFavorite: Function,
     showFavorites: Function,
-    showAll: Function,
     schools: Array<Object>,
     navigation: Object,
     filters: Array<Object>,
@@ -56,65 +51,9 @@ export default class SchoolList extends React.Component {
     )
   });
 
-  // TODO: make each list item it's own component
-  // To prevent binding in render
-  viewSchoolInfo = (selection: Object) => {
-    this.props.setSelection(selection);
-    this.props.navigation.navigate('SchoolInfo', {
-      name: selection.name,
-    });
-  };
-
   showFavorites = () => {
     this.props.navigation.navigate('FavoriteSchools');
   }
-
-  // TODO: same as above
-  toggleFavorite = (name: string) => {
-    this.props.toggleFavorite({ name });
-  };
-
-  renderFilter = (filter: {
-    type: string,
-    property: string,
-    value: string|number,
-    min: number,
-    max: number
-  }, index: number) => {
-    let title = '';
-    switch (filter.type) {
-      case 'value':
-        title = `${filter.property}: ${filter.value}`;
-        break;
-      case 'above':
-        title = `${filter.property} > ${filter.min}`;
-        break;
-      case 'below':
-        title = `${filter.property} < ${filter.max}`;
-        break;
-      case 'between':
-        title = `${filter.min} ⇔ ${filter.max}`;
-    }
-    return (
-      <Button
-        key={ filter.property }
-        transparent
-        bordered
-        primary
-        style={ styles.filterItem }
-        onLongPress={ () => console.log('pressed long') }
-      >
-        <View>
-          <Text style={{ paddingTop: 10 }}>
-            { keyDisplayMap[filter.property] }
-          </Text>
-          <Text style={{ paddingBottom: 10 }}>
-            { title }
-          </Text>
-        </View>
-      </Button>
-    );
-  };
 
   render() {
     const activeFilters = this.props.filters.filter(fil => fil.isActive);
@@ -128,7 +67,10 @@ export default class SchoolList extends React.Component {
               >
                 <ListItem>
                   { activeFilters.map((filter, index) =>
-                    this.renderFilter(filter, index)
+                    <FilterScrollContainer
+                      key={ filter.property }
+                      filter={ filter }
+                    />
                   ) }
                 </ListItem>
               </ScrollView>
