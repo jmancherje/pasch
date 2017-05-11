@@ -1,18 +1,21 @@
 // @flow
 import React from 'react';
 import {
+  ScrollView,
+  View,
+} from 'react-native';
+import {
   Container,
   List,
   Content,
   Text,
   ListItem,
   Button,
-  // Footer,
-  // FooterTab,
 } from 'native-base';
 import { Icon } from 'react-native-elements';
 
 import SchoolListItemContainer from '../containers/SchoolListItemContainer';
+import keyDisplayMap from '../constants/keyDisplayMap';
 
 const Divider = ({ text }: { text: string }) => (
   <ListItem itemDivider style={styles.divider}>
@@ -89,23 +92,47 @@ export default class SchoolList extends React.Component {
       case 'below':
         title = `${filter.property} < ${filter.max}`;
         break;
+      case 'between':
+        title = `${filter.min} ⇔ ${filter.max}`;
     }
     return (
-      <ListItem key={ index }>
-        <Text>{ title }</Text>
-      </ListItem>
+      <Button
+        key={ filter.property }
+        transparent
+        bordered
+        primary
+        style={ styles.filterItem }
+        onLongPress={ () => console.log('pressed long') }
+      >
+        <View>
+          <Text style={{ paddingTop: 10 }}>
+            { keyDisplayMap[filter.property] }
+          </Text>
+          <Text style={{ paddingBottom: 10 }}>
+            { title }
+          </Text>
+        </View>
+      </Button>
     );
   };
 
   render() {
+    const activeFilters = this.props.filters.filter(fil => fil.isActive);
     return (
       <Container>
         <Content>
           <List containerStyle={{ marginTop: 0 }}>
-            { this.props.filters.length ? (
-              <Divider text="Active Filters:" />
+            { activeFilters.length ? (
+              <ScrollView
+                horizontal
+              >
+                <ListItem>
+                  { activeFilters.map((filter, index) =>
+                    this.renderFilter(filter, index)
+                  ) }
+                </ListItem>
+              </ScrollView>
             ) : null }
-            { this.props.filters.map(this.renderFilter) }
             { (!Array.isArray(this.props.schools) || !this.props.schools.length) ? (
               <Divider text="No Schools found, try adjusting filters" />
             ) : (
@@ -126,7 +153,6 @@ export default class SchoolList extends React.Component {
             ) }
           </List>
         </Content>
-
       </Container>
     );
   }
@@ -135,5 +161,11 @@ export default class SchoolList extends React.Component {
 const styles = {
   divider: {
     backgroundColor: '#e0e3e6',
+  },
+  filterItem: {
+    marginRight: 10,
+    paddingRight: 10,
+    // borderRightWidth: 1,
+    // borderRightColor: 'grey',
   },
 };

@@ -23,13 +23,13 @@ const updateFilter = (state, filterUpdate) => {
 const defaultFilters = [{
   property: 'minGpa',
   type: 'between',
-  min: 2.5,
+  min: 2.0,
   max: 4.0,
   isActive: false,
 }, {
   property: 'minSGpa',
   type: 'between',
-  min: 2.5,
+  min: 2.0,
   max: 4.0,
   isActive: false,
 }, {
@@ -102,7 +102,6 @@ const favorites = (state = {}, { type, payload }) => {
     case 'favorite/TOGGLE':
       return { ...state, [payload.name]: !state[payload.name] };
     case 'favorite/INITIALIZE':
-      console.log('initialize', payload);
       return { ...state, ...payload };
     default:
       return state;

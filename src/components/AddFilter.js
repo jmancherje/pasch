@@ -11,8 +11,6 @@ import {
 
 import AddFilterRowContainer from '../containers/AddFilterRowContainer';
 
-import GpaFilterContainer from '../containers/filter-items/GpaFilterContainer';
-
 const Divider = ({ text }: { text: string }) => (
   <ListItem itemDivider style={styles.divider}>
     <Text>{ text }</Text>
@@ -42,14 +40,14 @@ export default class FilterComponent extends React.Component {
           <Divider text="Minimum Requirements" />
           <AddFilterRowContainer
             property="minGpa"
-            min={ 2.5 }
+            min={ 2.0 }
             max={ 4.0 }
             step={ 0.05 }
             toFixed={ 2 }
           />
           <AddFilterRowContainer
             property="minSGpa"
-            min={ 2.5 }
+            min={ 2.0 }
             max={ 4.0 }
             step={ 0.05 }
             toFixed={ 2 }

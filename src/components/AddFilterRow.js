@@ -2,7 +2,10 @@
 import React from 'react';
 import {
   View,
+  Dimensions,
 } from 'react-native';
+const { width } = Dimensions.get('window');
+const sliderWidth = Math.round(width * 0.87);
 import {
   Text,
   Body,
@@ -103,6 +106,7 @@ export default class GpaFilter extends React.Component {
                 <Row style={ [styles.centerRow, styles.sliderRow] }>
                   <MultiSlider
                     trackStyle={styles.track}
+                    sliderLength={ sliderWidth }
                     min={ min }
                     max={ max }
                     step={ step }

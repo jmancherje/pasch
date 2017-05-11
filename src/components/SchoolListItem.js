@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-// import { Dimensions } from 'react-native';
 import {
   ListItem,
   Body,
@@ -8,7 +7,6 @@ import {
   Right,
 } from 'native-base';
 import { Icon } from 'react-native-elements';
-// const { width } = Dimensions.get('window');
 
 import FavoriteIconContainer from '../containers/FavoriteIconContainer';
 
