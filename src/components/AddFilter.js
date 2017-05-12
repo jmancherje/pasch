@@ -10,6 +10,7 @@ import {
 } from 'native-base';
 
 import AddFilterRowNumericContainer from '../containers/AddFilterRowNumericContainer';
+import AddFilterRowBooleanContainer from '../containers/AddFilterRowBooleanContainer';
 
 const Divider = ({ text }: { text: string }) => (
   <ListItem itemDivider style={styles.divider}>
@@ -40,14 +41,14 @@ export default class FilterComponent extends React.Component {
           <Divider text="Minimum Requirements" />
           <AddFilterRowNumericContainer
             property="minGpa"
-            min={ 2.0 }
+            min={ 0 }
             max={ 4.0 }
             step={ 0.05 }
             toFixed={ 2 }
           />
           <AddFilterRowNumericContainer
             property="minSGpa"
-            min={ 2.0 }
+            min={ 0 }
             max={ 4.0 }
             step={ 0.05 }
             toFixed={ 2 }
@@ -58,12 +59,9 @@ export default class FilterComponent extends React.Component {
             max={ 5000 }
             step={ 100 }
           />
-          <ListItem>
-            <CheckBox />
-            <Body>
-              <Text>GRE Required</Text>
-            </Body>
-          </ListItem>
+          <AddFilterRowBooleanContainer
+            property="greRequired"
+          />
           <Divider text="Program Features" />
           <ListItem>
             <CheckBox />

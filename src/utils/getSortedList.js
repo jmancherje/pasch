@@ -1,5 +1,5 @@
 // @flow
-import { reject, eachRight } from 'lodash';
+import { reject, eachRight, each } from 'lodash';
 
 // const numericProperties = ['minGpa', 'minSGpa', 'pance', 'healthcareHours'];
 const fullLabelProperties = ['state', 'accreditation'];
@@ -50,20 +50,25 @@ type filterType = {
 
 export const filterBy = (schools: Array<Object>, filterList: Array<filterType>) => {
   let schoolList = schools.slice();
-  filterList.forEach(filter => {
-    const { min, max, type, value, property } = filter;
+  each(filterList, (filter => {
+    const { min, max, type, value, property, isActive } = filter;
+    if (!isActive) {
+      return true;
+    }
     // Above, below, between for numbers
     switch (type) {
-      case 'above':
-        schoolList = schoolList.filter(school => school[property] >= min);
-        break;
-      case 'below':
-        schoolList = schoolList.filter(school => school[property] <= max);
-        break;
+      // case 'above':
+      //   schoolList = schoolList.filter(school => school[property] >= min);
+      //   break;
+      // case 'below':
+      //   schoolList = schoolList.filter(school => school[property] <= max);
+      //   break;
       case 'between':
         schoolList = schoolList.filter(school => school[property] <= max && school[property] >= min);
         break;
       case 'value':
+        // TODO: for value and notValue, handle list of values
+        // Will be necessary for filtering states
         schoolList = schoolList.filter(school => school[property] === value);
         break;
       case 'notValue':
@@ -72,7 +77,7 @@ export const filterBy = (schools: Array<Object>, filterList: Array<filterType>) 
       default:
         break;
     }
-  });
+  }));
   return schoolList;
 };
 

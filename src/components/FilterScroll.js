@@ -67,16 +67,12 @@ export default class FilterScroll extends React.Component {
     const { filter } = this.props;
     let title = '';
     switch (filter.type) {
-      case 'between':
-        title = `${filter.min} ⇔ ${filter.max}`;
-        break;
       case 'value':
-        // TODO: handle value/notValue
-        title = 'value';
+        title = filter.value ? 'Yes' : 'No';
         break;
-      case 'notValue':
-        title = 'notValue';
-        break;
+      case 'between':
+        // TODO: handle below x or above y
+        title = `${filter.min} ⇔ ${filter.max}`;
     }
     return title;
   };

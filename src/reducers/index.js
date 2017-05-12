@@ -10,7 +10,15 @@ const navReducer = (state, action) => {
   return newState ? newState : state;
 };
 
-const updateFilter = (state, filterUpdate) => {
+type Filter = {
+  value?: any,
+  type?: string,
+  min?: number,
+  max?: number,
+  isActive: boolean,
+  property: string,
+};
+const updateFilter = (state, filterUpdate: Filter) => {
   const filterList = [...state];
   const index = filterList.findIndex(filter => filter.property === filterUpdate.property);
   if (index === -1) {
@@ -23,21 +31,31 @@ const updateFilter = (state, filterUpdate) => {
 const defaultFilters = [{
   property: 'minGpa',
   type: 'between',
-  min: 2.0,
-  max: 4.0,
+  min: 0,
+  max: 3.2,
   isActive: false,
+  value: false,
 }, {
   property: 'minSGpa',
   type: 'between',
-  min: 2.0,
-  max: 4.0,
+  min: 0,
+  max: 3.2,
   isActive: false,
+  value: false,
 }, {
   property: 'healthcareHours',
   type: 'between',
   min: 0,
   max: 5000,
   isActive: false,
+  value: false,
+}, {
+  property: 'greRequired',
+  type: 'value',
+  value: false,
+  isActive: false,
+  min: 0,
+  max: 0,
 }];
 const filters = (state = defaultFilters, { type, payload }) => {
   let filterList = [...state];

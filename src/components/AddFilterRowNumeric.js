@@ -30,7 +30,7 @@ type Props = {
   toFixed?: number,
 };
 
-export default class GpaFilter extends React.Component {
+export default class AddFilterRowNumeric extends React.Component {
   props: Props;
   state: {
     lower: number,
@@ -81,7 +81,7 @@ export default class GpaFilter extends React.Component {
   };
 
   // Differentiates `below 3.0` vs `between 2.5 and 3.0`
-  displayValueRange = () => {
+  displayFilterDescription = () => {
     const { upper, lower } = this.state;
     const { min, max } = this.props;
     // User hasn't adjusted the sliders at all
@@ -102,12 +102,12 @@ export default class GpaFilter extends React.Component {
     const startingMax = typeof filter.max === 'number' ? filter.max : max;
     return (
       <View>
-        <ListItem onPress={ this.toggleSelection } style={ isActive ? styles.hideBorder : null }>
+        <ListItem style={ isActive ? styles.hideBorder : null }>
           <Body>
             <Text>{ keyDisplayMap[this.props.property] }</Text>
             { isActive ? (
               <Text>
-                { this.displayValueRange() }
+                { this.displayFilterDescription() }
               </Text>
             ) : null }
           </Body>
