@@ -42,8 +42,8 @@ export default class GpaFilter extends React.Component {
     // Initialize these values IF the user already has
     // A filter set for minimum GPA
     this.state = {
-      upper: filter.max || max || 100,
-      lower: filter.min || min || 0,
+      upper: filter.max || max,
+      lower: filter.min || min,
     };
   }
 
@@ -68,18 +68,32 @@ export default class GpaFilter extends React.Component {
   };
 
   updateSliderValues = ([lower, upper]: [number, number]) => {
-    this.setState({
-      lower: Math.round(lower * 100) / 100,
-      upper: Math.round(upper * 100) / 100,
-    });
+    this.setState({ lower, upper });
   };
 
+  // Handles decimals
   displayValue = (val: number) => {
     const { toFixed } = this.props;
     if (typeof this.props.toFixed === 'number') {
       return (+val).toFixed(toFixed);
     }
     return val;
+  };
+
+  // Differentiates `below 3.0` vs `between 2.5 and 3.0`
+  displayValueRange = () => {
+    const { upper, lower } = this.state;
+    const { min, max } = this.props;
+    // User hasn't adjusted the sliders at all
+    if (upper === max && lower === min) {
+      return 'Adjust the sliders to create a filter';
+    }
+    if (lower === min) {
+      return `Below ${this.displayValue(upper)}`;
+    } else if (upper === max) {
+      return `Above ${this.displayValue(lower)}`;
+    }
+    return `${this.displayValue(lower)} to ${this.displayValue(upper)}`;
   };
 
   render() {
@@ -93,7 +107,7 @@ export default class GpaFilter extends React.Component {
             <Text>{ keyDisplayMap[this.props.property] }</Text>
             { isActive ? (
               <Text>
-                { `${this.displayValue(this.state.lower)} to ${this.displayValue(this.state.upper)}` }
+                { this.displayValueRange() }
               </Text>
             ) : null }
           </Body>

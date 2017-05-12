@@ -9,7 +9,7 @@ import {
   Body,
 } from 'native-base';
 
-import AddFilterRowContainer from '../containers/AddFilterRowContainer';
+import AddFilterRowNumericContainer from '../containers/AddFilterRowNumericContainer';
 
 const Divider = ({ text }: { text: string }) => (
   <ListItem itemDivider style={styles.divider}>
@@ -38,21 +38,21 @@ export default class FilterComponent extends React.Component {
       <Container>
         <Content>
           <Divider text="Minimum Requirements" />
-          <AddFilterRowContainer
+          <AddFilterRowNumericContainer
             property="minGpa"
             min={ 2.0 }
             max={ 4.0 }
             step={ 0.05 }
             toFixed={ 2 }
           />
-          <AddFilterRowContainer
+          <AddFilterRowNumericContainer
             property="minSGpa"
             min={ 2.0 }
             max={ 4.0 }
             step={ 0.05 }
             toFixed={ 2 }
           />
-          <AddFilterRowContainer
+          <AddFilterRowNumericContainer
             property="healthcareHours"
             min={ 0 }
             max={ 5000 }

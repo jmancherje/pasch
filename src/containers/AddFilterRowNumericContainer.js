@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import AddFilterRow from '../components/AddFilterRow';
+import AddFilterRowNumeric from '../components/AddFilterRowNumeric';
 import {
   updateFilter,
   removeFilter,
@@ -16,4 +16,4 @@ const mapStateToProps = (state, { property }) => {
 export default connect(mapStateToProps, {
   updateFilter,
   removeFilter,
-})(AddFilterRow);
+})(AddFilterRowNumeric);
