@@ -3,7 +3,6 @@ import { combineReducers } from 'redux';
 
 import AppNavigator from '../components/AppNavigator';
 
-import realData from '../constants/realData.json';
 import testData from '../constants/testData.json';
 
 const navReducer = (state, action) => {

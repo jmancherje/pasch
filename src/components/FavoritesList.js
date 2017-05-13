@@ -26,7 +26,6 @@ export default class FavoritesList extends React.Component {
   props: {
     setSelection: Function,
     removeFilter: Function,
-    toggleFavorite: Function,
     showFavorites: Function,
     showAll: Function,
     schools: Array<Object>,
@@ -57,46 +56,6 @@ export default class FavoritesList extends React.Component {
 
   showAll = () => {
     this.props.navigation.navigate('AllSchools');
-  };
-
-  // TODO: make each list item it's own component
-  // To prevent binding in render
-  viewSchoolInfo = (selection: Object) => {
-    this.props.setSelection(selection);
-    this.props.navigation.navigate('SchoolInfo', {
-      name: selection.name,
-    });
-  };
-
-  // TODO: same as above
-  toggleFavorite = (name: string) => {
-    this.props.toggleFavorite({ name });
-  };
-
-  renderFilter = (filter: {
-    type: string,
-    property: string,
-    value: string|number,
-    min: number,
-    max: number
-  }, index: number) => {
-    let title = '';
-    switch (filter.type) {
-      case 'value':
-        title = `${filter.property}: ${filter.value}`;
-        break;
-      case 'above':
-        title = `${filter.property} > ${filter.min}`;
-        break;
-      case 'below':
-        title = `${filter.property} < ${filter.max}`;
-        break;
-    }
-    return (
-      <ListItem key={ index }>
-        <Text>{ title }</Text>
-      </ListItem>
-    );
   };
 
   render() {
