@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import FavoritesList from '../components/FavoritesList';
 import {
   setSelection,
-  // removeFilter,
   toggleFavorite,
   showFavorites,
   showAll,
@@ -13,7 +12,7 @@ import { getSortedFilteredList } from '../utils/getSortedList';
 const mapStateToProps = (state) => {
   const { filters, sorters, schools, favorites } = state;
   return {
-    filters,
+    activeFilters: filters.filter(filt => filt.isActive),
     schools: getSortedFilteredList(schools, sorters, filters, favorites, true),
   };
 };

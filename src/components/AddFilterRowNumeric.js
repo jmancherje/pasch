@@ -5,7 +5,7 @@ import {
   Dimensions,
 } from 'react-native';
 const { width } = Dimensions.get('window');
-const sliderWidth = Math.round(width * 0.87);
+const sliderWidth = Math.round(width * 0.85);
 import {
   Text,
   Body,
@@ -119,7 +119,7 @@ export default class AddFilterRowNumeric extends React.Component {
               <Grid>
                 <Row style={ [styles.centerRow, styles.sliderRow] }>
                   <MultiSlider
-                    trackStyle={styles.track}
+                    trackStyle={ styles.track }
                     sliderLength={ sliderWidth }
                     min={ min }
                     max={ max }

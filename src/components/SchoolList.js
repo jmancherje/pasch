@@ -27,7 +27,7 @@ export default class SchoolList extends React.Component {
     showFavorites: Function,
     schools: Array<Object>,
     navigation: Object,
-    filters: Array<Object>,
+    activeFilters: Array<Object>,
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -56,17 +56,14 @@ export default class SchoolList extends React.Component {
   }
 
   render() {
-    const activeFilters = this.props.filters.filter(fil => fil.isActive);
     return (
       <Container>
         <Content>
           <List containerStyle={{ marginTop: 0 }}>
-            { activeFilters.length ? (
-              <ScrollView
-                horizontal
-              >
+            { this.props.activeFilters.length ? (
+              <ScrollView horizontal >
                 <ListItem>
-                  { activeFilters.map((filter, index) =>
+                  { this.props.activeFilters.map((filter, index) =>
                     <FilterScrollContainer
                       key={ filter.property }
                       filter={ filter }

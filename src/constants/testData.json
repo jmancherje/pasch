@@ -1,0 +1,494 @@
+[
+  {
+    "name": "University of Alabama at Birmingham",
+    "state": "Alabama",
+    "pance_1": "0.93",
+    "pance_5": "0.97",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": 500,
+    "greRequired": true,
+    "misc": "surgical focus, MCAT accepted",
+    "website": [
+      "https://www.uab.edu/shp/cds/physician-assistant/admissions"
+    ]
+  },
+  {
+    "name": "University of South Alabama",
+    "state": "Alabama",
+    "pance_1": "0.88",
+    "pance_5": "0.92",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "2.00",
+    "healthcareHours": 500,
+    "greRequired": true,
+    "misc": "primary care",
+    "website": [
+      "http://www.southalabama.edu/colleges/alliedhealth/pa/admissions.html#MinimumRequirements"
+    ]
+  },
+  {
+    "name": "Arizona School of Health Sciences",
+    "state": "Arizona",
+    "pance_1": "0.93",
+    "pance_5": "0.92",
+    "accreditation": "continuing",
+    "minGpa": "2.75",
+    "minGpaRecommended": "3.00",
+    "minSGpa": "2.75",
+    "minSGpaRecommended": "3.00",
+    "healthcareHoursRecommended": null,
+    "greRequired": false,
+    "misc": "(3.00 or higher strongly recommended)\r\nA minimum of 100 community service hours is strongly recommended.",
+    "website": [
+      "https://www.atsu.edu/ashs/programs/physician_assistant/admissions.htm"
+    ]
+  },
+  {
+    "name": "Midwestern University: Glendale",
+    "state": "Arizona",
+    "pance_1": "1.00",
+    "pance_5": "0.98",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": null,
+    "greRequired": true,
+    "misc": "very high GRE scores",
+    "website": [
+      "http://www.paschoolfinder.com/item/8519/\r\nhttps://www.midwestern.edu/programs_and_admission/az_physician_assistant_studies.html#Admission",
+      "Requirements"
+    ]
+  },
+  {
+    "name": "Nothern Arizona University",
+    "state": "Arizona",
+    "pance_1": "0.96",
+    "pance_5": "1.00",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHours": 500,
+    "greRequired": true,
+    "misc": "looking for people that want to practive in arizona",
+    "website": [
+      "http://www.paschoolfinder.com/item/northern-arizona-university/\r\nhttp://nau.edu/CHHS/PA/Admission/"
+    ]
+  },
+  {
+    "name": "Harding University",
+    "state": "Arkansas",
+    "pance_1": "0.94",
+    "pance_5": "0.92",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHours": 100,
+    "greRequired": true,
+    "misc": "20 hours of PA shadowing is recommended.",
+    "website": [
+      "http://www.paschoolfinder.com/item/harding-university/\r\nhttp://www.harding.edu/academics/colleges-departments/allied-health/physician-assistant-program/requirements"
+    ]
+  },
+  {
+    "name": "University of Arkansas",
+    "state": "Arkansas",
+    "pance_1": "0.92",
+    "pance_5": null,
+    "accreditation": "continuing",
+    "minGpaRecommended": "3.00",
+    "minSGpaRecommended": "3.00",
+    "healthcareHours": 500,
+    "greRequired": true,
+    "misc": "No gpa requirement, preferred 3.0",
+    "website": [
+      "http://healthprofessions.uams.edu/programs/physicianassistant/prerequisites/\r\nhttp://healthprofessions.uams.edu/files/2016/07/CHP-program-costs-2016-2017-NON-RESIDENT-PA.pdf"
+    ]
+  },
+  {
+    "name": "California Baptist Unviersity",
+    "state": "California",
+    "pance_1": null,
+    "pance_5": null,
+    "accreditation": "provisional",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": null,
+    "greRequired": false,
+    "website": [
+      "https://calbaptist.edu/programs/master-of-science-physician-assistant-studies/"
+    ]
+  },
+  {
+    "name": "Chapman University",
+    "state": "California",
+    "pance_1": null,
+    "pance_5": null,
+    "accreditation": "provisional",
+    "minGpa": "3.20",
+    "minSGpa": "3.20",
+    "healthcareHours": 1000,
+    "greRequired": true,
+    "website": [
+      "http://www.paschoolfinder.com/item/chapman-university/"
+    ]
+  },
+  {
+    "name": "Charles R. Drew University",
+    "state": "California",
+    "pance_1": null,
+    "pance_5": null,
+    "accreditation": "provisional",
+    "minGpaRecommended": "3.00",
+    "minSGpaRecommended": "3.00",
+    "healthcareHoursRecommended": 2000,
+    "greRequired": false,
+    "website": [
+      "http://www.paschoolfinder.com/item/charles-r-drew-university/\r\nhttps://www.cdrewu.edu/cosh/prog/PA/Admissions/Prerequisites\r\nhttps://www.cdrewu.edu/cosh/prog/PA/Admissions/Direct"
+    ]
+  },
+  {
+    "name": "Loma Linda University",
+    "state": "California",
+    "pance_1": "0.92",
+    "pance_5": "0.94",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHours": 2000,
+    "greRequired": false
+  },
+  {
+    "name": "Marshall B. Ketchum University",
+    "state": "California",
+    "pance_1": null,
+    "pance_5": null,
+    "accreditation": "provisional",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHours": 1000,
+    "greRequired": false
+  },
+  {
+    "name": "Samuel Merritt University",
+    "state": "California",
+    "pance_1": "0.96",
+    "pance_5": "0.95",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": 1000,
+    "greRequired": false
+  },
+  {
+    "name": "Southern California University Of Health Sciences",
+    "state": "California",
+    "pance_1": null,
+    "pance_5": null,
+    "accreditation": "provisional",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHours": 500,
+    "greRequired": false
+  },
+  {
+    "name": "Stanford University",
+    "state": "California",
+    "pance_1": "0.88",
+    "pance_5": "0.89",
+    "accreditation": "continuing",
+    "minGpa": null,
+    "minSGpa": null,
+    "healthcareHours": 500,
+    "greRequired": true
+  },
+  {
+    "name": "Touro University - California",
+    "state": "California",
+    "pance_1": "1.00",
+    "pance_5": "0.98",
+    "accreditation": "continuing",
+    "minGpa": "2.75",
+    "minSGpa": "2.75",
+    "healthcareHours": 500,
+    "healthcareHoursRecommended": 1000,
+    "greRequired": false
+  },
+  {
+    "name": "University of California - Davis",
+    "state": "California",
+    "pance_1": "0.92",
+    "pance_5": "0.97",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "2.70",
+    "healthcareHours": 1000,
+    "greRequired": false
+  },
+  {
+    "name": "University of Southern California",
+    "state": "California",
+    "pance_1": "0.95",
+    "pance_5": "0.96",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "2.75",
+    "healthcareHoursRecommended": null,
+    "greRequired": true
+  },
+  {
+    "name": "University of the Pacific",
+    "state": "California",
+    "pance_1": null,
+    "pance_5": null,
+    "accreditation": "provisional",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHours": 1000,
+    "greRequired": false
+  },
+  {
+    "name": "Western University of Health Sciences",
+    "state": "California",
+    "pance_1": "0.92",
+    "pance_5": "0.90",
+    "accreditation": "continuing",
+    "minGpa": "2.70",
+    "minSGpa": "2.70",
+    "healthcareHoursRecommended": null,
+    "greRequired": false
+  },
+  {
+    "name": "Red Rocks Community College",
+    "state": "Colorado",
+    "pance_1": "0.94",
+    "pance_5": "0.94",
+    "accreditation": "continuing",
+    "minGpa": null,
+    "minSGpa": null,
+    "healthcareHours": 2000,
+    "greRequired": false
+  },
+  {
+    "name": "University of Colorado",
+    "state": "Colorado",
+    "pance_1": "0.98",
+    "pance_5": "0.98",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": null,
+    "greRequired": true
+  },
+  {
+    "name": "Quinnipiac University",
+    "state": "Connecticut",
+    "pance_1": "1.00",
+    "pance_5": "0.98",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minGpaRecommended": "3.20",
+    "minSGpa": "3.00",
+    "minSGpaRecommended": "3.20",
+    "healthcareHours": 2500,
+    "greRequired": false
+  },
+  {
+    "name": "Sacred Heart University",
+    "state": "Connecticut",
+    "pance_1": null,
+    "pance_5": null,
+    "accreditation": "provisional",
+    "minGpa": "2.80",
+    "minSGpa": "3.00",
+    "healthcareHours": 1000,
+    "greRequired": false
+  },
+  {
+    "name": "University of Bridgeport",
+    "state": "Connecticut",
+    "pance_1": "0.97",
+    "pance_5": "0.88",
+    "accreditation": "probation",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHours": 500,
+    "greRequired": false
+  },
+  {
+    "name": "University of Saint Joseph",
+    "state": "Connecticut",
+    "pance_1": null,
+    "pance_5": null,
+    "accreditation": "provisional",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHours": 250
+  },
+  {
+    "name": "Yale University School of Medicine",
+    "state": "Connecticut",
+    "pance_1": "0.97",
+    "pance_5": "0.98",
+    "accreditation": "continuing",
+    "minGpa": null,
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": 1000,
+    "greRequired": true
+  },
+  {
+    "name": "Arcadia University",
+    "state": "Delaware",
+    "pance_1": "1.00",
+    "pance_5": "1.00",
+    "accreditation": "continuing",
+    "minGpa": null,
+    "minSGpa": null,
+    "healthcareHours": 200,
+    "greRequired": true
+  },
+  {
+    "name": "George Washington University",
+    "state": "District of Columbia",
+    "pance_1": "0.93",
+    "pance_5": "0.94",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHours": 1000,
+    "greRequired": true
+  },
+  {
+    "name": "Adventist University of Health Sciences",
+    "state": "Florida",
+    "pance_1": null,
+    "pance_5": null,
+    "accreditation": "provisional",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": 2000,
+    "greRequired": true
+  },
+  {
+    "name": "Barry University",
+    "state": "Florida",
+    "pance_1": "0.95",
+    "pance_5": "0.91",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": null,
+    "greRequired": true
+  },
+  {
+    "name": "Florida International University Herbert Wertheim College of Medicine",
+    "state": "Florida",
+    "pance_1": null,
+    "pance_5": null,
+    "accreditation": "provisional",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": null,
+    "greRequired": true
+  },
+  {
+    "name": "Keiser University",
+    "state": "Florida",
+    "pance_1": "0.92",
+    "accreditation": "continuing",
+    "minGpa": "2.70",
+    "minSGpa": "3.00",
+    "healthcareHours": 100,
+    "greRequired": true
+  },
+  {
+    "name": "Miami-Dade College",
+    "state": "Florida",
+    "pance_1": "0.91",
+    "pance_5": "0.82",
+    "accreditation": "continuing",
+    "minGpa": "2.50",
+    "minSGpa": "2.70",
+    "healthcareHoursRecommended": null,
+    "greRequired": false
+  },
+  {
+    "name": "Nova Southeastern University, Fort Lauderdale",
+    "state": "Florida",
+    "pance_1": "0.99",
+    "pance_5": "0.98",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": null,
+    "greRequired": true
+  },
+  {
+    "name": "Nova Southeastern University, Fort Myers",
+    "state": "Florida",
+    "pance_1": "0.96",
+    "pance_5": "0.94",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": null,
+    "greRequired": true
+  },
+  {
+    "name": "Nova Southeastern University, Jacksonville",
+    "state": "Florida",
+    "pance_1": "0.92",
+    "pance_5": "0.89",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": null,
+    "greRequired": true
+  },
+  {
+    "name": "Nova Southeastern University, Orlando",
+    "state": "Florida",
+    "pance_1": "0.98",
+    "pance_5": "0.99",
+    "accreditation": "continuing",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHoursRecommended": null,
+    "greRequired": true
+  },
+  {
+    "name": "South University, Tampa",
+    "state": "Florida",
+    "pance_1": "0.96",
+    "pance_5": "0.90",
+    "accreditation": "continuing",
+    "minGpaRecommended": "3.00",
+    "minSGpaRecommended": "3.00",
+    "healthcareHoursRecommended": null,
+    "greRequired": true
+  },
+  {
+    "name": "University of Florida",
+    "state": "Florida",
+    "pance_1": "0.98",
+    "pance_5": "0.99",
+    "accreditation": "continuing",
+    "minGpaRecommended": "3.00",
+    "minSGpaRecommended": "3.00",
+    "healthcareHoursRecommended": 2000,
+    "greRequired": true
+  },
+  {
+    "name": "University of Sourth Florida",
+    "state": "Florida",
+    "pance_1": null,
+    "pance_5": null,
+    "accreditation": "provisional",
+    "minGpa": "3.00",
+    "minSGpa": "3.00",
+    "healthcareHours": 500,
+    "greRequired": true
+  }
+]

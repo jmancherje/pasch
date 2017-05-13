@@ -1,6 +1,9 @@
 // @flow
 import React from 'react';
 import {
+  ScrollView,
+} from 'react-native';
+import {
   Container,
   List,
   Content,
@@ -11,6 +14,7 @@ import {
 import { Icon } from 'react-native-elements';
 
 import SchoolListItemContainer from '../containers/SchoolListItemContainer';
+import FilterScrollContainer from '../containers/FilterScrollContainer';
 
 const Divider = ({ text }: { text: string }) => (
   <ListItem itemDivider style={styles.divider}>
@@ -27,7 +31,7 @@ export default class FavoritesList extends React.Component {
     showAll: Function,
     schools: Array<Object>,
     navigation: Object,
-    filters: Array<Object>,
+    activeFilters: Array<Object>,
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -100,12 +104,20 @@ export default class FavoritesList extends React.Component {
       <Container>
         <Content>
           <List containerStyle={{ marginTop: 0 }}>
-            { this.props.filters.length ? (
-              <Divider text="Active Filters:" />
+            { this.props.activeFilters.length ? (
+              <ScrollView horizontal >
+                <ListItem>
+                  { this.props.activeFilters.map((filter, index) =>
+                    <FilterScrollContainer
+                      key={ filter.property }
+                      filter={ filter }
+                    />
+                  ) }
+                </ListItem>
+              </ScrollView>
             ) : null }
-            { this.props.filters.map(this.renderFilter) }
             { (!Array.isArray(this.props.schools) || !this.props.schools.length) ? (
-              <Divider text="No Schools found, try adjusting filters" />
+              <Divider text="No Schools found, add more schools or try adjusting filters" />
             ) : (
               this.props.schools.map((school, index, list) => {
                 if (school.isLabel) {
