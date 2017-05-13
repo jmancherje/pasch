@@ -1,6 +1,14 @@
 // @flow
 import React from 'react';
-import { Container, Content, Card, CardItem, Text } from 'native-base';
+import {
+  Container,
+  Content,
+  Card,
+  CardItem,
+  Text,
+  Body,
+  Right,
+} from 'native-base';
 
 import FavoriteIconContainer from '../containers/FavoriteIconContainer';
 
@@ -18,6 +26,10 @@ export default class SchoolInfo extends React.Component {
     school: Object,
   };
   static navigationOptions = ({ navigation, screenProps }) => ({
+    title: navigation.state.params.name,
+    headerTitleStyle: {
+      color: '#312e4e'
+    },
     headerRight: (
       <FavoriteIconContainer
         name={ navigation.state.params.name }
@@ -28,18 +40,31 @@ export default class SchoolInfo extends React.Component {
     const { school } = this.props;
     const info = [];
     const addListItemFn = (key) => {
-      if (school[key] && !(key === 'name')) {
+      if (school[key]) {
+        if (keys.misc.includes(key) || key === 'name') {
+          info.push(
+            <CardItem key={ key } style={ styles.cardItem } hideChevron>
+              <Text>{ `${keyDisplayMap[key]}: ${displayModifiers[key](school[key])}` }</Text>
+            </CardItem>
+          );
+          return;
+        }
         info.push(
-          <CardItem key={ key } hideChevron>
-            <Text>{ `${keyDisplayMap[key]}: ${displayModifiers[key](school[key])}` }</Text>
+          <CardItem key={ key } style={ styles.cardItem } hideChevron>
+            <Body>
+              <Text>{ `${keyDisplayMap[key]}:` }</Text>
+            </Body>
+            <Right>
+              <Text>{  `${displayModifiers[key](school[key])}` }</Text>
+            </Right>
           </CardItem>
         );
       }
     };
     // General info:
     info.push(
-      <CardItem key="schoolinfo" style={styles.divider}>
-        <Text>School Info:</Text>
+      <CardItem key="name" style={ styles.divider } hideChevron>
+        <Text>{ school.name }</Text>
       </CardItem>
     );
     keys.generalSchoolInfo.forEach((property) => addListItemFn(property));
@@ -80,5 +105,9 @@ const styles = {
   },
   container: {
     padding: 5,
-  }
+  },
+  cardItem: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'grey',
+  },
 };

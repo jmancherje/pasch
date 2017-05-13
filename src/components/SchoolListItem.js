@@ -1,5 +1,7 @@
 // @flow
 import React from 'react';
+import { Dimensions } from 'react-native';
+const { width } = Dimensions.get('window');
 import {
   ListItem,
   Body,
@@ -34,22 +36,18 @@ export default class SchoolListItem extends React.Component {
         style={styles.listRow}
         onPress={ this.viewSchoolInfo }
       >
-        { /* TODO: get avatars for schools <Left style={styles.left}>
-          <Icon
-            name="chevron-right"
-          />
-        </Left>*/ }
         <Body style={styles.body}>
           <Text>{ name }</Text>
           <Text note>{ state }</Text>
         </Body>
         <Right style={styles.right}>
-          { !hideFavoriteIcon ?
-            (<FavoriteIconContainer name={ this.props.name } />) :
-            (<Icon
+          { !hideFavoriteIcon ? (
+            <FavoriteIconContainer name={ this.props.name } />
+          ) : (
+            <Icon
               name="chevron-right"
-            />)
-          }
+            />
+          ) }
         </Right>
       </ListItem>
     );
@@ -69,14 +67,10 @@ const styles = {
   },
   body: {
     flex: 11,
-    // width: (width * 0.83),
-    // borderWidth: 1,
-    // borderColor: 'red',
+    width: (width * 0.83),
   },
   right: {
     flex: 2,
-    // width: (width * 0.17),
-    // borderWidth: 1,
-    // borderColor: 'blue',
+    width: (width * 0.17),
   }
 };
