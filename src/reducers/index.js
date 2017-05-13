@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 import AppNavigator from '../components/AppNavigator';
 
 import realData from '../constants/realData.json';
+import testData from '../constants/testData.json';
 
 const navReducer = (state, action) => {
   const newState = AppNavigator.router.getStateForAction(action, state);
@@ -137,7 +138,7 @@ const isShowingFavorites = (state = false, { type }) => {
   }
 };
 
-const schools = (state = realData, { type, payload }) => {
+const schools = (state = testData, { type, payload }) => {
   return state;
 };
 

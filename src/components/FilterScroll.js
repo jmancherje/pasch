@@ -9,79 +9,71 @@ import {
 } from 'native-base';
 
 import keyDisplayMap from '../constants/keyDisplayMap';
+import displayFilter from '../utils/displayFilter';
+
+const bounds = {
+  minimum: {
+    minGpa: 0,
+    minSGpa: 0,
+    healthcareHours: 0,
+  },
+  maximum: {
+    minGpa: 4,
+    minSGpa: 4,
+    healthcareHours: 5000,
+  },
+};
+
+const handleBetween = ({ min, max, property }) => {
+  // TODO: get constants file with min / max for all numeric values
+  const isMin = min === bounds.minimum[property];
+  const isMax = max === bounds.maximum[property];
+  const toFixed = /gpa/i.test(property) ? 2 : null;
+  if (isMin && isMax) {
+    return 'Any';
+  } else if (isMin) {
+    return `Below ${displayFilter(max, toFixed)}`;
+  } else if (isMax) {
+    return `Above ${displayFilter(min, toFixed)}`;
+  }
+  return `${displayFilter(min, toFixed)} ⇔ ${displayFilter(max, toFixed)}`;
+};
 
 export default class FilterScroll extends React.Component {
   props: {
     removeFilter: Function,
-    filter: Object,
+    min: number,
+    max: number,
+    property: string,
+    isActive: boolean,
+    value: ?any,
+    type: string,
   };
 
   removeFilter = () => {
-    const { removeFilter, filter } = this.props;
-    removeFilter({ property: filter.property });
+    const { removeFilter, property } = this.props;
+    removeFilter({ property });
   };
 
-  renderFilter = (filter: {
-    type: string,
-    property: string,
-    value: string|number,
-    min: number,
-    max: number
-  }, index: number) => {
-    let title = '';
-    switch (filter.type) {
-      case 'value':
-        title = `${filter.property}: ${filter.value}`;
-        break;
-      case 'above':
-        title = `${filter.property} > ${filter.min}`;
-        break;
-      case 'below':
-        title = `${filter.property} < ${filter.max}`;
-        break;
-      case 'between':
-        title = `${filter.min} ⇔ ${filter.max}`;
-    }
-    return (
-      <Button
-        key={ filter.property }
-        transparent
-        bordered
-        primary
-        style={ styles.filterItem }
-        onLongPress={ this.removeFilter }
-      >
-        <View>
-          <Text style={{ paddingTop: 10 }}>
-            { keyDisplayMap[filter.property] }
-          </Text>
-          <Text style={{ paddingBottom: 10 }}>
-            { title }
-          </Text>
-        </View>
-      </Button>
-    );
-  };
 
   getFilterDescription = () => {
-    const { filter } = this.props;
+    const { type, value, property, min, max } = this.props;
     let title = '';
-    switch (filter.type) {
+    switch (type) {
       case 'value':
-        title = filter.value ? 'Yes' : 'No';
+        title = value ? 'Yes' : 'No';
         break;
       case 'between':
-        // TODO: handle below x or above y
-        title = `${filter.min} ⇔ ${filter.max}`;
+        title = handleBetween({ min, max, property });
     }
     return title;
   };
 
   render() {
-    const { filter } = this.props;
+    const { property } = this.props;
     return (
       <Button
-        key={ filter.property }
+        key={ property }
         transparent
         bordered
         primary
@@ -90,7 +82,7 @@ export default class FilterScroll extends React.Component {
       >
         <View>
           <Text style={{ paddingTop: 10 }}>
-            { keyDisplayMap[filter.property] }
+            { keyDisplayMap[property] }
           </Text>
           <Text style={{ paddingBottom: 10 }}>
             { this.getFilterDescription() }

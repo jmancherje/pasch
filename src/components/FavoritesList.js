@@ -109,8 +109,8 @@ export default class FavoritesList extends React.Component {
                 <ListItem>
                   { this.props.activeFilters.map((filter, index) =>
                     <FilterScrollContainer
+                      { ...filter }
                       key={ filter.property }
-                      filter={ filter }
                     />
                   ) }
                 </ListItem>

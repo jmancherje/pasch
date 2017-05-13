@@ -53,7 +53,7 @@ export default class SchoolList extends React.Component {
 
   showFavorites = () => {
     this.props.navigation.navigate('FavoriteSchools');
-  }
+  };
 
   render() {
     return (
@@ -65,8 +65,8 @@ export default class SchoolList extends React.Component {
                 <ListItem>
                   { this.props.activeFilters.map((filter, index) =>
                     <FilterScrollContainer
-                      key={ filter.property }
-                      filter={ filter }
+                      { ...filter }
+                      key={ index }
                     />
                   ) }
                 </ListItem>
@@ -78,12 +78,12 @@ export default class SchoolList extends React.Component {
               this.props.schools.map((school, index, list) => {
                 if (school.isLabel) {
                   return (
-                    <Divider text={ school.title } key={ school.title } />
+                    <Divider text={ school.title } key={ index } />
                   );
                 }
                 return (
                   <SchoolListItemContainer
-                    key={ `${school.name}_${school.state}` }
+                    key={ school.name }
                     name={ school.name }
                     navigation={ this.props.navigation }
                   />
@@ -104,7 +104,5 @@ const styles = {
   filterItem: {
     marginRight: 10,
     paddingRight: 10,
-    // borderRightWidth: 1,
-    // borderRightColor: 'grey',
   },
 };
