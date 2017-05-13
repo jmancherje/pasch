@@ -7,6 +7,12 @@ import FavoriteIconContainer from '../containers/FavoriteIconContainer';
 import keyDisplayMap from '../constants/keyDisplayMap';
 import displayModifiers from '../constants/displayModifiers';
 
+const keys = {
+  generalSchoolInfo: ['state', 'pance_1', 'pance_5', 'accreditation'],
+  minimumRequirements: ['minGpa', 'minGpaRecommended', 'minSGpa', 'minSGpaRecommended','healthcareHours', 'healthcareHoursRecommended', 'greRequired'],
+  misc: ['misc', 'website'],
+};
+
 export default class SchoolInfo extends React.Component {
   props: {
     school: Object,
@@ -21,25 +27,10 @@ export default class SchoolInfo extends React.Component {
   renderInfo = () => {
     const { school } = this.props;
     const info = [];
-    const {
-      state,
-      pance,
-      accreditation,
-      minGpa,
-      minSGpa,
-      healthcareHours,
-      greRequired,
-      misc,
-      website,
-      ...rest
-    } = school;
     const addListItemFn = (key) => {
       if (school[key] && !(key === 'name')) {
         info.push(
-          <CardItem key={ key }
-            hideChevron
-            // title=
-          >
+          <CardItem key={ key } hideChevron>
             <Text>{ `${keyDisplayMap[key]}: ${displayModifiers[key](school[key])}` }</Text>
           </CardItem>
         );
@@ -51,14 +42,14 @@ export default class SchoolInfo extends React.Component {
         <Text>School Info:</Text>
       </CardItem>
     );
-    ['state', 'pance', 'accreditation'].forEach(addListItemFn);
+    keys.generalSchoolInfo.forEach((property) => addListItemFn(property));
     // Minimum Requirements:
     info.push(
       <CardItem key="requirements" style={styles.divider}>
         <Text>Minimum Requirements:</Text>
       </CardItem>
     );
-    ['minGpa', 'minSGpa', 'healthcareHours', 'greRequired'].forEach(addListItemFn);
+    keys.minimumRequirements.forEach(addListItemFn);
     // Other Info:
     info.push(
       <CardItem key="otherinfo" style={styles.divider}>
@@ -66,8 +57,7 @@ export default class SchoolInfo extends React.Component {
       </CardItem>
     );
     // Add any misc items
-    Object.keys(rest).forEach((key) => addListItemFn(rest[key]));
-    ['misc','website'].forEach(addListItemFn);
+    keys.misc.forEach((property) => addListItemFn(property));
 
     return info;
   };

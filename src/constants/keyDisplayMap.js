@@ -1,12 +1,16 @@
 export default {
   name: 'Name',
   state: 'State',
-  pance: 'PANCE Pass Rate',
+  pance_1: 'PANCE Pass Rate (1yr)',
+  pance_5: 'PANCE Pass Rate (5yr)',
   accreditation: 'Accreditation',
   minGpa: 'Minimum GPA',
+  minGpaRecommended: '*Recommended Min GPA',
   minSGpa: 'Minimum Science GPA',
+  minSGpaRecommended: '*Recommended Science Min GPA',
   healthcareHours: 'Health Care Hours',
-  greRequired: 'GRE Required',
+  healthcareHoursRecommended: 'Recommended Health Care Hours',
+  greRequired: 'Is GRE Required',
   misc: 'Notes',
   website: 'Source(s)'
 };

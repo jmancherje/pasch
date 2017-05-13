@@ -100,7 +100,5 @@ const styles = {
   filterItem: {
     marginRight: 10,
     paddingRight: 10,
-    // borderRightWidth: 1,
-    // borderRightColor: 'grey',
   },
 };
